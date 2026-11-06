@@ -3,6 +3,7 @@ message: "Cite this software release when using the application or reproduction 
 type: software
 title: "Predicción del rendimiento agrícola: piloto reproducible de trigo alemán"
 version: 1.0.0
+doi: 10.5281/zenodo.24022432
 date-released: 2026-11-06
 repository-code: "https://github.com/Pull-H/prediccion-rendimiento-agricola"
 url: "https://github.com/Pull-H/prediccion-rendimiento-agricola/releases/tag/v1.0.0"

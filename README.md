@@ -84,4 +84,6 @@ No publique `.env`, datos originales, artefactos entrenados ni respaldos de base
 
 ## Reproducibilidad y reutilización
 
+La versión `v1.0.0` está archivada en Zenodo: **[DOI: 10.5281/zenodo.24022432](https://doi.org/10.5281/zenodo.24022432)**. El depósito preserva el código y los materiales públicos de esa versión; los datos individuales y los pesos restringidos no se incluyen.
+
 La versión `v1.0.0` reúne código, resultados agregados, particiones por índice de fila, versiones del entorno y scripts para volver a entrenar o verificar los modelos originales. Consulte [el protocolo reproducible y acceso a datos](reproducibility/README.md). Los datos fuente se solicitan a YieldSAT; el CSV derivado y los pesos originales se conservan en un paquete local pendiente de revisión de sus condiciones de redistribución. El código propio usa [MIT](LICENSE), con [alcance y exclusiones](LICENSE_SCOPE.md). Para citar el software utilice `CITATION.cff`.

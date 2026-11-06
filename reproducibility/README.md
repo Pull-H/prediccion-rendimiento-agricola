@@ -54,7 +54,7 @@ Para reconstruir las figuras, colocar el CSV y su `.provenance.json` en `data/yi
 
 ## Preservación y cita
 
-La etiqueta `v1.0.0` identifica el código publicado. `CITATION.cff` permite citar esta versión como software. No se ha creado un registro Zenodo ni asignado un DOI; una release de GitHub no equivale a un depósito con preservación independiente. Si se autoriza la redistribución, podrá añadirse el paquete de datos y pesos a un depósito persistente y actualizar esta declaración.
+La etiqueta `v1.0.0` identifica el código publicado. Esta versión se archivó en Zenodo con **[DOI: 10.5281/zenodo.24022432](https://doi.org/10.5281/zenodo.24022432)**. `CITATION.cff` permite citarla como software. El ZIP depositado corresponde a la instantánea original de la versión; sus declaraciones sobre la ausencia de DOI preceden al registro, y esta documentación se actualizó después de publicarlo. El depósito incluye código y materiales públicos, sin datos individuales ni pesos restringidos. Si se autoriza su redistribución, deberá crearse una nueva versión del depósito y actualizar esta declaración.
 
 `validation.json` registra las comprobaciones ejecutadas: verificación de los cinco modelos congelados y sus análisis, y un reentrenamiento separado de los cinco modelos con las mismas versiones y CPU, sin alterar los artefactos originales. El nuevo entrenamiento reprodujo las métricas de prueba dentro de la precisión numérica indicada; esto no garantiza igualdad en otros entornos.
 
