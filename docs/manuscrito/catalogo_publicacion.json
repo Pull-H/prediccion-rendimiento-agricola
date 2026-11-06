@@ -534,18 +534,18 @@
   "files": {
     "articulo_trigo_yieldsat.docx": {
       "path": "articulo_trigo_yieldsat.docx",
-      "sha256": "c360a8e557c550c321832ac715685f0411d25f387a87913d263016addc1a9f3b",
-      "bytes": 2066465
+      "sha256": "8d494ab6144cb461eca6b9143ac5373c98bfdc4f532875d1cb33ce637d6e30f7",
+      "bytes": 2066726
     },
     "articulo_trigo_yieldsat.md": {
       "path": "articulo_trigo_yieldsat.md",
-      "sha256": "a707ba9f99c1886712c2c1bbd7db9260bb096a73ca78b42a0aa5e4524f198a00",
-      "bytes": 47485
+      "sha256": "3f5949effc0c0d6acd583e914c2dbda16bca67598af34a75d395fc5335d4ea95",
+      "bytes": 48142
     },
     "articulo_trigo_yieldsat.pdf": {
       "path": "articulo_trigo_yieldsat.pdf",
-      "sha256": "36dce1f57201a82d6ee2879df8a9c477406ed7fdf2f0d34c087932f6ddbf0347",
-      "bytes": 2758986
+      "sha256": "14b6548a78423fe54d6d622f765997ef98e44beae821ee0f771238be6d1f40b6",
+      "bytes": 2759606
     },
     "CONTROL_NORMAS.md": {
       "path": "CONTROL_NORMAS.md",
@@ -738,7 +738,7 @@
       "bytes": 6363784
     }
   },
-  "generated_at_utc": "2026-11-06T20:30:02.833749+00:00",
+  "generated_at_utc": "2026-11-06T21:09:50.728318+00:00",
   "editorial_pending": [
     "Nombres, ORCID y correspondencia de autores",
     "Facultad/departamento",

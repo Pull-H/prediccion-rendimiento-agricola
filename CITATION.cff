@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "Cite this software release when using the application or reproduction scripts. Cite YieldSAT separately for its data."
+type: software
+title: "Predicción del rendimiento agrícola: piloto reproducible de trigo alemán"
+version: 1.0.0
+date-released: 2026-11-06
+repository-code: "https://github.com/Pull-H/prediccion-rendimiento-agricola"
+url: "https://github.com/Pull-H/prediccion-rendimiento-agricola/releases/tag/v1.0.0"
+license: MIT
+authors:
+  - family-names: "García Alayo"
+    given-names: "Jack David"
+    affiliation: "Universidad Nacional de Trujillo"
+    orcid: "https://orcid.org/0009-0005-3038-242X"
+  - family-names: "Pulache Quiroga"
+    given-names: "Gerson Aldair"
+    affiliation: "Universidad Nacional de Trujillo"
+    orcid: "https://orcid.org/0009-0008-2898-161X"
+  - family-names: "Santos Fernández"
+    given-names: "Juan Pedro"
+    affiliation: "Universidad Nacional de Trujillo"
+    orcid: "https://orcid.org/0000-0002-8882-9256"

@@ -81,3 +81,7 @@ $env:PYTHONPATH = 'backend'
 Para compilar la interfaz fuera de Docker, ejecute `npm ci` y `npm run build` desde `frontend/`. Las pruebas que usan NetCDF o redes neuronales necesitan las dependencias adicionales indicadas en [la guía de pruebas](docs/TESTING.md).
 
 No publique `.env`, datos originales, artefactos entrenados ni respaldos de base de datos. Las exclusiones están declaradas en `.gitignore`.
+
+## Reproducibilidad y reutilización
+
+La versión `v1.0.0` reúne código, resultados agregados, particiones por índice de fila, versiones del entorno y scripts para volver a entrenar o verificar los modelos originales. Consulte [el protocolo reproducible y acceso a datos](reproducibility/README.md). Los datos fuente se solicitan a YieldSAT; el CSV derivado y los pesos originales se conservan en un paquete local pendiente de revisión de sus condiciones de redistribución. El código propio usa [MIT](LICENSE), con [alcance y exclusiones](LICENSE_SCOPE.md). Para citar el software utilice `CITATION.cff`.

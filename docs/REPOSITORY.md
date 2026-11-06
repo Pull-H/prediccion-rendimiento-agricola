@@ -21,7 +21,7 @@ Las dependencias instaladas (`.venv` y `frontend/node_modules`) permanecen dispo
 
 `.env`, `data/`, `artifacts/`, respaldos de base de datos y `docs/manuscrito/evidencia_modelos.json` no se suben. Este último contiene observaciones y predicciones individuales derivadas de datos autorizados; los documentos y gráficos agregados ya generados permiten usar el módulo del artículo sin ese archivo.
 
-El acceso autorizado a YieldSAT no se interpreta como permiso de redistribución. El repositorio se crea privado; antes de hacerlo público deben revisarse los términos de difusión de los derivados y los documentos de autoría.
+El acceso autorizado a YieldSAT no se interpreta como permiso de redistribución. La versión pública contiene código y resultados agregados; los datos individuales y los pesos se mantienen fuera de Git mientras se revisan las condiciones de acceso recibidas. Véase [el protocolo reproducible](../reproducibility/README.md).
 
 ## Qué ocurre al clonar
 

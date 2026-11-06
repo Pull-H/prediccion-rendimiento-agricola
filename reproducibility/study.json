@@ -1,0 +1,1479 @@
+{
+  "version": "1.0.0",
+  "dataset": "YieldSAT Germany wheat 240-day field aggregates",
+  "dataset_sha256": "fa9496d9598896042152d3bd669edd1290384630f0e880d79fdde483aee0e2e1",
+  "rows": 184,
+  "data_access": "provider_authorization_required; local CSV and weights not publicly deposited",
+  "provider_url": "https://yieldsat.github.io/",
+  "split": {
+    "strategy": "chronological_campaign_holdout",
+    "group_column": "campaign",
+    "train_years": [
+      2016,
+      2017,
+      2018,
+      2019
+    ],
+    "validation_years": [
+      2020
+    ],
+    "test_years": [
+      2021,
+      2022
+    ],
+    "train_rows": 132,
+    "validation_rows": 15,
+    "test_rows": 37,
+    "train_groups": 4,
+    "validation_groups": 1,
+    "test_groups": 2,
+    "group_overlap": false
+  },
+  "seed": 42,
+  "python": "3.12.16",
+  "versions": {
+    "numpy": "2.2.1",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.6.0",
+    "xgboost-cpu": "3.4.1",
+    "torch": "2.15.0+cpu",
+    "scipy": "1.18.1",
+    "fastapi": "0.115.6",
+    "sqlalchemy": "2.0.36"
+  },
+  "model_details": {
+    "RandomForest": {
+      "epochs": null,
+      "device": "cpu",
+      "training_seconds": 1.573,
+      "seed": 42,
+      "validation": "temporal",
+      "model_id": 14,
+      "experiment_id": 14,
+      "artifact_sha256": "5cc980a8cd84bcce61fb37b7aec138c1022f7d8d751021813135d34bb8512174",
+      "model_config": null,
+      "sequence_schema": null,
+      "parameters": {
+        "n_estimators": 160,
+        "max_depth": null,
+        "min_samples_leaf": 2,
+        "random_state": 42,
+        "n_jobs": -1
+      }
+    },
+    "XGBoost": {
+      "epochs": null,
+      "device": "cpu",
+      "training_seconds": 0.868,
+      "seed": 42,
+      "validation": "temporal",
+      "model_id": 15,
+      "experiment_id": 15,
+      "artifact_sha256": "49276e19d6077e1a1b667b7808653a314945aee5dab56ec624b3b514ab804ed0",
+      "model_config": null,
+      "sequence_schema": null,
+      "parameters": {
+        "n_estimators": 180,
+        "max_depth": 4,
+        "learning_rate": 0.05,
+        "subsample": 0.9,
+        "colsample_bytree": 0.9,
+        "random_state": 42,
+        "n_jobs": 2,
+        "tree_method": "hist",
+        "objective": "reg:squarederror"
+      }
+    },
+    "LSTM": {
+      "epochs": 30,
+      "device": "cpu",
+      "training_seconds": 13.01,
+      "seed": 42,
+      "validation": "temporal",
+      "model_id": 16,
+      "experiment_id": 16,
+      "artifact_sha256": "34f7aef0da0acddee9eea683ac023f4c490438d7597cb28437d9b979e73c0a38",
+      "model_config": {
+        "sequence_channels": 24,
+        "static_features": 24,
+        "timesteps": 4
+      },
+      "sequence_schema": {
+        "variables": [
+          "B01_observations",
+          "B01_source",
+          "B02_observations",
+          "B02_source",
+          "B03_observations",
+          "B03_source",
+          "B04_observations",
+          "B04_source",
+          "B05_observations",
+          "B05_source",
+          "B06_observations",
+          "B06_source",
+          "B07_observations",
+          "B07_source",
+          "B08_observations",
+          "B08_source",
+          "B09_observations",
+          "B09_source",
+          "B11_observations",
+          "B11_source",
+          "B12_observations",
+          "B12_source",
+          "B8A_observations",
+          "B8A_source"
+        ],
+        "timesteps": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "static_features": [
+          "clay_0_5_source",
+          "clay_0_5_source_observed_fraction",
+          "sand_0_5_source",
+          "sand_0_5_source_observed_fraction",
+          "silt_0_5_source",
+          "silt_0_5_source_observed_fraction",
+          "phh2o_0_5_source",
+          "phh2o_0_5_source_observed_fraction",
+          "soc_0_5_source",
+          "soc_0_5_source_observed_fraction",
+          "nitrogen_0_5_source",
+          "nitrogen_0_5_source_observed_fraction",
+          "dem_source",
+          "dem_source_observed_fraction"
+        ]
+      }
+    },
+    "CNN-LSTM": {
+      "epochs": 30,
+      "device": "cpu",
+      "training_seconds": 4.657,
+      "seed": 42,
+      "validation": "temporal",
+      "model_id": 17,
+      "experiment_id": 17,
+      "artifact_sha256": "a42abafe82a3c884bfbd071c84dfc4ef2068e0d36ffe8adc872e1fba385939d4",
+      "model_config": {
+        "sequence_channels": 24,
+        "static_features": 24,
+        "timesteps": 4
+      },
+      "sequence_schema": {
+        "variables": [
+          "B01_observations",
+          "B01_source",
+          "B02_observations",
+          "B02_source",
+          "B03_observations",
+          "B03_source",
+          "B04_observations",
+          "B04_source",
+          "B05_observations",
+          "B05_source",
+          "B06_observations",
+          "B06_source",
+          "B07_observations",
+          "B07_source",
+          "B08_observations",
+          "B08_source",
+          "B09_observations",
+          "B09_source",
+          "B11_observations",
+          "B11_source",
+          "B12_observations",
+          "B12_source",
+          "B8A_observations",
+          "B8A_source"
+        ],
+        "timesteps": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "static_features": [
+          "clay_0_5_source",
+          "clay_0_5_source_observed_fraction",
+          "sand_0_5_source",
+          "sand_0_5_source_observed_fraction",
+          "silt_0_5_source",
+          "silt_0_5_source_observed_fraction",
+          "phh2o_0_5_source",
+          "phh2o_0_5_source_observed_fraction",
+          "soc_0_5_source",
+          "soc_0_5_source_observed_fraction",
+          "nitrogen_0_5_source",
+          "nitrogen_0_5_source_observed_fraction",
+          "dem_source",
+          "dem_source_observed_fraction"
+        ]
+      }
+    },
+    "CNN-Transformer": {
+      "epochs": 30,
+      "device": "cpu",
+      "training_seconds": 1.573,
+      "seed": 42,
+      "validation": "temporal",
+      "model_id": 18,
+      "experiment_id": 18,
+      "artifact_sha256": "a7629462d18945101f0f64245c8858a882a77ec5317e4f434a4e5590308c6c80",
+      "model_config": {
+        "sequence_channels": 24,
+        "static_features": 24,
+        "timesteps": 4
+      },
+      "sequence_schema": {
+        "variables": [
+          "B01_observations",
+          "B01_source",
+          "B02_observations",
+          "B02_source",
+          "B03_observations",
+          "B03_source",
+          "B04_observations",
+          "B04_source",
+          "B05_observations",
+          "B05_source",
+          "B06_observations",
+          "B06_source",
+          "B07_observations",
+          "B07_source",
+          "B08_observations",
+          "B08_source",
+          "B09_observations",
+          "B09_source",
+          "B11_observations",
+          "B11_source",
+          "B12_observations",
+          "B12_source",
+          "B8A_observations",
+          "B8A_source"
+        ],
+        "timesteps": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "static_features": [
+          "clay_0_5_source",
+          "clay_0_5_source_observed_fraction",
+          "sand_0_5_source",
+          "sand_0_5_source_observed_fraction",
+          "silt_0_5_source",
+          "silt_0_5_source_observed_fraction",
+          "phh2o_0_5_source",
+          "phh2o_0_5_source_observed_fraction",
+          "soc_0_5_source",
+          "soc_0_5_source_observed_fraction",
+          "nitrogen_0_5_source",
+          "nitrogen_0_5_source_observed_fraction",
+          "dem_source",
+          "dem_source_observed_fraction"
+        ]
+      }
+    }
+  },
+  "metrics": {
+    "TrainingMean": {
+      "train": {
+        "mae": 1.5057544738210333,
+        "rmse": 1.9727919176972422,
+        "r2": 0.0,
+        "mape": 16.322582456904648,
+        "n": 132
+      },
+      "validation": {
+        "mae": 1.2067421998757337,
+        "rmse": 1.6056527141544412,
+        "r2": -0.003526474127332424,
+        "mape": 13.136288649398034,
+        "n": 15
+      },
+      "test": {
+        "mae": 1.499501250122865,
+        "rmse": 1.9020776510690423,
+        "r2": -1.3829744254204077,
+        "mape": 20.55557842920733,
+        "n": 37
+      }
+    },
+    "RandomForest": {
+      "train": {
+        "mae": 0.47565309787374116,
+        "rmse": 0.6658516077409952,
+        "r2": 0.8860820016386273,
+        "mape": 5.297309806185832,
+        "n": 132
+      },
+      "validation": {
+        "mae": 1.5076757462942847,
+        "rmse": 1.6817057503976065,
+        "r2": -0.10084358767515034,
+        "mape": 15.216597483901905,
+        "n": 15
+      },
+      "test": {
+        "mae": 1.2007150618811417,
+        "rmse": 1.6470551495063928,
+        "r2": -0.7868133077626858,
+        "mape": 16.50982785854121,
+        "n": 37
+      }
+    },
+    "XGBoost": {
+      "train": {
+        "mae": 0.05569138520232612,
+        "rmse": 0.07215697239985237,
+        "r2": 0.998662191210046,
+        "mape": 0.5767886986837817,
+        "n": 132
+      },
+      "validation": {
+        "mae": 1.0784302977806053,
+        "rmse": 1.3275828860897516,
+        "r2": 0.3139608673907808,
+        "mape": 10.534424875550778,
+        "n": 15
+      },
+      "test": {
+        "mae": 1.335488909748656,
+        "rmse": 1.78883621002499,
+        "r2": -1.1076769727101503,
+        "mape": 17.8276755370948,
+        "n": 37
+      }
+    },
+    "LSTM": {
+      "train": {
+        "mae": 1.2943415823649744,
+        "rmse": 1.614395605265477,
+        "r2": 0.3303353513423878,
+        "mape": 13.579666321768505,
+        "n": 132
+      },
+      "validation": {
+        "mae": 1.2065943665470433,
+        "rmse": 1.500288013134525,
+        "r2": 0.12385723819893413,
+        "mape": 11.495529277547806,
+        "n": 15
+      },
+      "test": {
+        "mae": 1.0977632745818617,
+        "rmse": 1.4365555712207836,
+        "r2": -0.3592763398092047,
+        "mape": 14.080858529937283,
+        "n": 37
+      }
+    },
+    "CNN-LSTM": {
+      "train": {
+        "mae": 1.310058899186963,
+        "rmse": 1.7350650237461387,
+        "r2": 0.22648462530671698,
+        "mape": 13.575799372928904,
+        "n": 132
+      },
+      "validation": {
+        "mae": 1.15089842635448,
+        "rmse": 1.4123522031129627,
+        "r2": 0.22355334721570652,
+        "mape": 11.22639607394457,
+        "n": 15
+      },
+      "test": {
+        "mae": 0.9984251850932343,
+        "rmse": 1.3797307973746185,
+        "r2": -0.25386740491707194,
+        "mape": 13.854177514246555,
+        "n": 37
+      }
+    },
+    "CNN-Transformer": {
+      "train": {
+        "mae": 1.3501104343836607,
+        "rmse": 1.7402575744858952,
+        "r2": 0.2218478792280031,
+        "mape": 14.400000648588252,
+        "n": 132
+      },
+      "validation": {
+        "mae": 1.019578165509595,
+        "rmse": 1.2768447734094148,
+        "r2": 0.36539746177318133,
+        "mape": 10.31993033642799,
+        "n": 15
+      },
+      "test": {
+        "mae": 1.2104249525845439,
+        "rmse": 1.5904803309144404,
+        "r2": -0.6661707315541319,
+        "mape": 16.62626964921483,
+        "n": 37
+      }
+    }
+  },
+  "baseline_value": 9.977186865582432,
+  "statistics": {
+    "validation": "temporal",
+    "seed": 42,
+    "dataset_sha256": "fa9496d9598896042152d3bd669edd1290384630f0e880d79fdde483aee0e2e1",
+    "split_info": {
+      "strategy": "chronological_campaign_holdout",
+      "group_column": "campaign",
+      "train_years": [
+        2016,
+        2017,
+        2018,
+        2019
+      ],
+      "validation_years": [
+        2020
+      ],
+      "test_years": [
+        2021,
+        2022
+      ],
+      "train_rows": 132,
+      "validation_rows": 15,
+      "test_rows": 37,
+      "train_groups": 4,
+      "validation_groups": 1,
+      "test_groups": 2,
+      "group_overlap": false
+    },
+    "test_observations": 37,
+    "block_column": "parcel_id",
+    "spatial_unit": "parcel",
+    "independent_blocks": 37,
+    "bootstrap_repetitions": 2000,
+    "block_count": 37,
+    "alpha": 0.05,
+    "training_details": {
+      "RandomForest": {
+        "epochs": null,
+        "device": "cpu"
+      },
+      "XGBoost": {
+        "epochs": null,
+        "device": "cpu"
+      },
+      "LSTM": {
+        "epochs": 30,
+        "device": "cpu"
+      },
+      "CNN-LSTM": {
+        "epochs": 30,
+        "device": "cpu"
+      },
+      "CNN-Transformer": {
+        "epochs": 30,
+        "device": "cpu"
+      }
+    },
+    "methods": {
+      "loss": "Mean absolute error per parcel_id block, in t/ha",
+      "friedman": "Tie-corrected statistic; asymptotic chi-square p-value",
+      "wilcoxon": "Paired two-sided signed-rank; zero_method=wilcox; method=auto",
+      "multiple_comparisons": "Holm correction across all model pairs",
+      "bootstrap": "Percentile 95% interval of observation-weighted MAE; whole parcel_id resampling",
+      "bootstrap_interval_scope": "Uncertainty in aggregate MAE, not an individual yield prediction interval"
+    },
+    "independence_verified": false,
+    "test_region_counts": {
+      "Germany/farm2": 36,
+      "Germany/farm6": 1
+    },
+    "models": {
+      "RandomForest": {
+        "test": {
+          "mae": 1.2007150618811422,
+          "rmse": 1.6470551495063932,
+          "r2": -0.7868133077626867,
+          "mape": 16.509827858541215,
+          "n": 37
+        },
+        "mae_95pct_cluster_bootstrap_ci": [
+          0.8730055422175842,
+          1.581047086326028
+        ]
+      },
+      "XGBoost": {
+        "test": {
+          "mae": 1.335488909748656,
+          "rmse": 1.78883621002499,
+          "r2": -1.1076769727101503,
+          "mape": 17.8276755370948,
+          "n": 37
+        },
+        "mae_95pct_cluster_bootstrap_ci": [
+          0.988376660939848,
+          1.7278983491970585
+        ]
+      },
+      "LSTM": {
+        "test": {
+          "mae": 1.0977632745818617,
+          "rmse": 1.4365555712207836,
+          "r2": -0.3592763398092047,
+          "mape": 14.080858529937283,
+          "n": 37
+        },
+        "mae_95pct_cluster_bootstrap_ci": [
+          0.8272331528817581,
+          1.418311906333556
+        ]
+      },
+      "CNN-LSTM": {
+        "test": {
+          "mae": 0.9984251850932343,
+          "rmse": 1.3797307973746185,
+          "r2": -0.25386740491707194,
+          "mape": 13.854177514246555,
+          "n": 37
+        },
+        "mae_95pct_cluster_bootstrap_ci": [
+          0.7129903346821135,
+          1.3250572433648937
+        ]
+      },
+      "CNN-Transformer": {
+        "test": {
+          "mae": 1.2104249525845439,
+          "rmse": 1.5904803309144404,
+          "r2": -0.6661707315541319,
+          "mape": 16.62626964921483,
+          "n": 37
+        },
+        "mae_95pct_cluster_bootstrap_ci": [
+          0.9120437635742937,
+          1.5548285586787254
+        ]
+      }
+    },
+    "friedman": {
+      "statistic": 10.356756756756795,
+      "p_value": 0.03482838583904545,
+      "degrees_of_freedom": 4,
+      "kendall_w": 0.06997808619430267
+    },
+    "wilcoxon_holm": [
+      {
+        "first": "RandomForest",
+        "second": "XGBoost",
+        "statistic": 226.0,
+        "median_block_mae_difference": -0.14143213852657865,
+        "p_value": 0.05873025856271852,
+        "holm_p_value": 0.4111118099390296,
+        "significant_0_05": false
+      },
+      {
+        "first": "RandomForest",
+        "second": "LSTM",
+        "statistic": 310.0,
+        "median_block_mae_difference": 0.024376701893483954,
+        "p_value": 0.5405446684744675,
+        "holm_p_value": 1.0,
+        "significant_0_05": false
+      },
+      {
+        "first": "RandomForest",
+        "second": "CNN-LSTM",
+        "statistic": 202.0,
+        "median_block_mae_difference": 0.2434115539010211,
+        "p_value": 0.02333608386106789,
+        "holm_p_value": 0.18668867088854313,
+        "significant_0_05": false
+      },
+      {
+        "first": "RandomForest",
+        "second": "CNN-Transformer",
+        "statistic": 320.0,
+        "median_block_mae_difference": 0.03345400039661861,
+        "p_value": 0.6437751749326708,
+        "holm_p_value": 1.0,
+        "significant_0_05": false
+      },
+      {
+        "first": "XGBoost",
+        "second": "LSTM",
+        "statistic": 254.0,
+        "median_block_mae_difference": 0.12924766540527344,
+        "p_value": 0.1448028364102356,
+        "holm_p_value": 0.8688170184614137,
+        "significant_0_05": false
+      },
+      {
+        "first": "XGBoost",
+        "second": "CNN-LSTM",
+        "statistic": 179.0,
+        "median_block_mae_difference": 0.3156847996087926,
+        "p_value": 0.008335574442753568,
+        "holm_p_value": 0.07502016998478211,
+        "significant_0_05": false
+      },
+      {
+        "first": "XGBoost",
+        "second": "CNN-Transformer",
+        "statistic": 293.0,
+        "median_block_mae_difference": 0.0044155120849609375,
+        "p_value": 0.3859146132308524,
+        "holm_p_value": 1.0,
+        "significant_0_05": false
+      },
+      {
+        "first": "LSTM",
+        "second": "CNN-LSTM",
+        "statistic": 280.0,
+        "median_block_mae_difference": 0.12505340576171875,
+        "p_value": 0.2877805096359225,
+        "holm_p_value": 1.0,
+        "significant_0_05": false
+      },
+      {
+        "first": "LSTM",
+        "second": "CNN-Transformer",
+        "statistic": 313.0,
+        "median_block_mae_difference": -0.03424072265625,
+        "p_value": 0.570653132192092,
+        "holm_p_value": 1.0,
+        "significant_0_05": false
+      },
+      {
+        "first": "CNN-LSTM",
+        "second": "CNN-Transformer",
+        "statistic": 152.0,
+        "median_block_mae_difference": -0.3403663635253906,
+        "p_value": 0.0020258271833881736,
+        "holm_p_value": 0.020258271833881736,
+        "significant_0_05": true
+      }
+    ],
+    "interpretation": "Exploratory paired comparison within this dataset; a single split and spatial dependence limit inference. Lower MAE is better. No evidence of transfer to Peru."
+  },
+  "permutation_summary": {
+    "RandomForest": {
+      "evaluation_role": "validation",
+      "n": 15,
+      "repetitions": 30,
+      "seed": 20261106,
+      "groups": {
+        "Window_1": {
+          "columns": [
+            "B01_source_t0",
+            "B01_observations_t0",
+            "B02_source_t0",
+            "B02_observations_t0",
+            "B03_source_t0",
+            "B03_observations_t0",
+            "B04_source_t0",
+            "B04_observations_t0",
+            "B05_source_t0",
+            "B05_observations_t0",
+            "B06_source_t0",
+            "B06_observations_t0",
+            "B07_source_t0",
+            "B07_observations_t0",
+            "B08_source_t0",
+            "B08_observations_t0",
+            "B09_source_t0",
+            "B09_observations_t0",
+            "B11_source_t0",
+            "B11_observations_t0",
+            "B12_source_t0",
+            "B12_observations_t0",
+            "B8A_source_t0",
+            "B8A_observations_t0"
+          ],
+          "mean_delta_mae": -0.056709673236209325,
+          "sd_delta_mae": 0.20931267662970343
+        },
+        "Window_2": {
+          "columns": [
+            "B01_source_t1",
+            "B01_observations_t1",
+            "B02_source_t1",
+            "B02_observations_t1",
+            "B03_source_t1",
+            "B03_observations_t1",
+            "B04_source_t1",
+            "B04_observations_t1",
+            "B05_source_t1",
+            "B05_observations_t1",
+            "B06_source_t1",
+            "B06_observations_t1",
+            "B07_source_t1",
+            "B07_observations_t1",
+            "B08_source_t1",
+            "B08_observations_t1",
+            "B09_source_t1",
+            "B09_observations_t1",
+            "B11_source_t1",
+            "B11_observations_t1",
+            "B12_source_t1",
+            "B12_observations_t1",
+            "B8A_source_t1",
+            "B8A_observations_t1"
+          ],
+          "mean_delta_mae": 0.006135687249786599,
+          "sd_delta_mae": 0.02400318553315875
+        },
+        "Window_3": {
+          "columns": [
+            "B01_source_t2",
+            "B01_observations_t2",
+            "B02_source_t2",
+            "B02_observations_t2",
+            "B03_source_t2",
+            "B03_observations_t2",
+            "B04_source_t2",
+            "B04_observations_t2",
+            "B05_source_t2",
+            "B05_observations_t2",
+            "B06_source_t2",
+            "B06_observations_t2",
+            "B07_source_t2",
+            "B07_observations_t2",
+            "B08_source_t2",
+            "B08_observations_t2",
+            "B09_source_t2",
+            "B09_observations_t2",
+            "B11_source_t2",
+            "B11_observations_t2",
+            "B12_source_t2",
+            "B12_observations_t2",
+            "B8A_source_t2",
+            "B8A_observations_t2"
+          ],
+          "mean_delta_mae": -0.031851662711543015,
+          "sd_delta_mae": 0.05410201666709454
+        },
+        "Window_4": {
+          "columns": [
+            "B01_source_t3",
+            "B01_observations_t3",
+            "B02_source_t3",
+            "B02_observations_t3",
+            "B03_source_t3",
+            "B03_observations_t3",
+            "B04_source_t3",
+            "B04_observations_t3",
+            "B05_source_t3",
+            "B05_observations_t3",
+            "B06_source_t3",
+            "B06_observations_t3",
+            "B07_source_t3",
+            "B07_observations_t3",
+            "B08_source_t3",
+            "B08_observations_t3",
+            "B09_source_t3",
+            "B09_observations_t3",
+            "B11_source_t3",
+            "B11_observations_t3",
+            "B12_source_t3",
+            "B12_observations_t3",
+            "B8A_source_t3",
+            "B8A_observations_t3"
+          ],
+          "mean_delta_mae": -0.044535544351430575,
+          "sd_delta_mae": 0.031738439536648906
+        },
+        "Soil": {
+          "columns": [
+            "clay_0_5_source",
+            "clay_0_5_source_observed_fraction",
+            "sand_0_5_source",
+            "sand_0_5_source_observed_fraction",
+            "silt_0_5_source",
+            "silt_0_5_source_observed_fraction",
+            "phh2o_0_5_source",
+            "phh2o_0_5_source_observed_fraction",
+            "soc_0_5_source",
+            "soc_0_5_source_observed_fraction",
+            "nitrogen_0_5_source",
+            "nitrogen_0_5_source_observed_fraction"
+          ],
+          "mean_delta_mae": 0.1698936140221954,
+          "sd_delta_mae": 0.1142815978564739
+        },
+        "DEM": {
+          "columns": [
+            "dem_source",
+            "dem_source_observed_fraction"
+          ],
+          "mean_delta_mae": 0.0013551942236783873,
+          "sd_delta_mae": 0.015185741308897544
+        },
+        "Context": {
+          "columns": [
+            "crop",
+            "region",
+            "campaign"
+          ],
+          "mean_delta_mae": 0.04802046907428386,
+          "sd_delta_mae": 0.021497164067358486
+        }
+      }
+    },
+    "XGBoost": {
+      "evaluation_role": "validation",
+      "n": 15,
+      "repetitions": 30,
+      "seed": 20261106,
+      "groups": {
+        "Window_1": {
+          "columns": [
+            "B01_source_t0",
+            "B01_observations_t0",
+            "B02_source_t0",
+            "B02_observations_t0",
+            "B03_source_t0",
+            "B03_observations_t0",
+            "B04_source_t0",
+            "B04_observations_t0",
+            "B05_source_t0",
+            "B05_observations_t0",
+            "B06_source_t0",
+            "B06_observations_t0",
+            "B07_source_t0",
+            "B07_observations_t0",
+            "B08_source_t0",
+            "B08_observations_t0",
+            "B09_source_t0",
+            "B09_observations_t0",
+            "B11_source_t0",
+            "B11_observations_t0",
+            "B12_source_t0",
+            "B12_observations_t0",
+            "B8A_source_t0",
+            "B8A_observations_t0"
+          ],
+          "mean_delta_mae": 0.28168046149503206,
+          "sd_delta_mae": 0.19424648165765787
+        },
+        "Window_2": {
+          "columns": [
+            "B01_source_t1",
+            "B01_observations_t1",
+            "B02_source_t1",
+            "B02_observations_t1",
+            "B03_source_t1",
+            "B03_observations_t1",
+            "B04_source_t1",
+            "B04_observations_t1",
+            "B05_source_t1",
+            "B05_observations_t1",
+            "B06_source_t1",
+            "B06_observations_t1",
+            "B07_source_t1",
+            "B07_observations_t1",
+            "B08_source_t1",
+            "B08_observations_t1",
+            "B09_source_t1",
+            "B09_observations_t1",
+            "B11_source_t1",
+            "B11_observations_t1",
+            "B12_source_t1",
+            "B12_observations_t1",
+            "B8A_source_t1",
+            "B8A_observations_t1"
+          ],
+          "mean_delta_mae": -0.016564892259276428,
+          "sd_delta_mae": 0.034571028512108144
+        },
+        "Window_3": {
+          "columns": [
+            "B01_source_t2",
+            "B01_observations_t2",
+            "B02_source_t2",
+            "B02_observations_t2",
+            "B03_source_t2",
+            "B03_observations_t2",
+            "B04_source_t2",
+            "B04_observations_t2",
+            "B05_source_t2",
+            "B05_observations_t2",
+            "B06_source_t2",
+            "B06_observations_t2",
+            "B07_source_t2",
+            "B07_observations_t2",
+            "B08_source_t2",
+            "B08_observations_t2",
+            "B09_source_t2",
+            "B09_observations_t2",
+            "B11_source_t2",
+            "B11_observations_t2",
+            "B12_source_t2",
+            "B12_observations_t2",
+            "B8A_source_t2",
+            "B8A_observations_t2"
+          ],
+          "mean_delta_mae": 0.07727909571212387,
+          "sd_delta_mae": 0.06396732941639413
+        },
+        "Window_4": {
+          "columns": [
+            "B01_source_t3",
+            "B01_observations_t3",
+            "B02_source_t3",
+            "B02_observations_t3",
+            "B03_source_t3",
+            "B03_observations_t3",
+            "B04_source_t3",
+            "B04_observations_t3",
+            "B05_source_t3",
+            "B05_observations_t3",
+            "B06_source_t3",
+            "B06_observations_t3",
+            "B07_source_t3",
+            "B07_observations_t3",
+            "B08_source_t3",
+            "B08_observations_t3",
+            "B09_source_t3",
+            "B09_observations_t3",
+            "B11_source_t3",
+            "B11_observations_t3",
+            "B12_source_t3",
+            "B12_observations_t3",
+            "B8A_source_t3",
+            "B8A_observations_t3"
+          ],
+          "mean_delta_mae": -0.008819076943791396,
+          "sd_delta_mae": 0.08181198173137258
+        },
+        "Soil": {
+          "columns": [
+            "clay_0_5_source",
+            "clay_0_5_source_observed_fraction",
+            "sand_0_5_source",
+            "sand_0_5_source_observed_fraction",
+            "silt_0_5_source",
+            "silt_0_5_source_observed_fraction",
+            "phh2o_0_5_source",
+            "phh2o_0_5_source_observed_fraction",
+            "soc_0_5_source",
+            "soc_0_5_source_observed_fraction",
+            "nitrogen_0_5_source",
+            "nitrogen_0_5_source_observed_fraction"
+          ],
+          "mean_delta_mae": 0.31985958997500763,
+          "sd_delta_mae": 0.17852103756510296
+        },
+        "DEM": {
+          "columns": [
+            "dem_source",
+            "dem_source_observed_fraction"
+          ],
+          "mean_delta_mae": -0.00296489185757125,
+          "sd_delta_mae": 0.0029074294814316042
+        },
+        "Context": {
+          "columns": [
+            "crop",
+            "region",
+            "campaign"
+          ],
+          "mean_delta_mae": 0.044012304087310654,
+          "sd_delta_mae": 0.026765935293113774
+        }
+      }
+    },
+    "LSTM": {
+      "evaluation_role": "validation",
+      "n": 15,
+      "repetitions": 30,
+      "seed": 20261106,
+      "groups": {
+        "Window_1": {
+          "columns": [
+            "B01_source_t0",
+            "B01_observations_t0",
+            "B02_source_t0",
+            "B02_observations_t0",
+            "B03_source_t0",
+            "B03_observations_t0",
+            "B04_source_t0",
+            "B04_observations_t0",
+            "B05_source_t0",
+            "B05_observations_t0",
+            "B06_source_t0",
+            "B06_observations_t0",
+            "B07_source_t0",
+            "B07_observations_t0",
+            "B08_source_t0",
+            "B08_observations_t0",
+            "B09_source_t0",
+            "B09_observations_t0",
+            "B11_source_t0",
+            "B11_observations_t0",
+            "B12_source_t0",
+            "B12_observations_t0",
+            "B8A_source_t0",
+            "B8A_observations_t0"
+          ],
+          "mean_delta_mae": 0.3385595107897102,
+          "sd_delta_mae": 0.1400558728448494
+        },
+        "Window_2": {
+          "columns": [
+            "B01_source_t1",
+            "B01_observations_t1",
+            "B02_source_t1",
+            "B02_observations_t1",
+            "B03_source_t1",
+            "B03_observations_t1",
+            "B04_source_t1",
+            "B04_observations_t1",
+            "B05_source_t1",
+            "B05_observations_t1",
+            "B06_source_t1",
+            "B06_observations_t1",
+            "B07_source_t1",
+            "B07_observations_t1",
+            "B08_source_t1",
+            "B08_observations_t1",
+            "B09_source_t1",
+            "B09_observations_t1",
+            "B11_source_t1",
+            "B11_observations_t1",
+            "B12_source_t1",
+            "B12_observations_t1",
+            "B8A_source_t1",
+            "B8A_observations_t1"
+          ],
+          "mean_delta_mae": 0.020285856182300544,
+          "sd_delta_mae": 0.06179688242681247
+        },
+        "Window_3": {
+          "columns": [
+            "B01_source_t2",
+            "B01_observations_t2",
+            "B02_source_t2",
+            "B02_observations_t2",
+            "B03_source_t2",
+            "B03_observations_t2",
+            "B04_source_t2",
+            "B04_observations_t2",
+            "B05_source_t2",
+            "B05_observations_t2",
+            "B06_source_t2",
+            "B06_observations_t2",
+            "B07_source_t2",
+            "B07_observations_t2",
+            "B08_source_t2",
+            "B08_observations_t2",
+            "B09_source_t2",
+            "B09_observations_t2",
+            "B11_source_t2",
+            "B11_observations_t2",
+            "B12_source_t2",
+            "B12_observations_t2",
+            "B8A_source_t2",
+            "B8A_observations_t2"
+          ],
+          "mean_delta_mae": 0.14005822089539535,
+          "sd_delta_mae": 0.06852965729505918
+        },
+        "Window_4": {
+          "columns": [
+            "B01_source_t3",
+            "B01_observations_t3",
+            "B02_source_t3",
+            "B02_observations_t3",
+            "B03_source_t3",
+            "B03_observations_t3",
+            "B04_source_t3",
+            "B04_observations_t3",
+            "B05_source_t3",
+            "B05_observations_t3",
+            "B06_source_t3",
+            "B06_observations_t3",
+            "B07_source_t3",
+            "B07_observations_t3",
+            "B08_source_t3",
+            "B08_observations_t3",
+            "B09_source_t3",
+            "B09_observations_t3",
+            "B11_source_t3",
+            "B11_observations_t3",
+            "B12_source_t3",
+            "B12_observations_t3",
+            "B8A_source_t3",
+            "B8A_observations_t3"
+          ],
+          "mean_delta_mae": -0.061264249915727036,
+          "sd_delta_mae": 0.05508625508691605
+        },
+        "Soil": {
+          "columns": [
+            "clay_0_5_source",
+            "clay_0_5_source_observed_fraction",
+            "sand_0_5_source",
+            "sand_0_5_source_observed_fraction",
+            "silt_0_5_source",
+            "silt_0_5_source_observed_fraction",
+            "phh2o_0_5_source",
+            "phh2o_0_5_source_observed_fraction",
+            "soc_0_5_source",
+            "soc_0_5_source_observed_fraction",
+            "nitrogen_0_5_source",
+            "nitrogen_0_5_source_observed_fraction"
+          ],
+          "mean_delta_mae": 0.1373239604392774,
+          "sd_delta_mae": 0.07740882177498568
+        },
+        "DEM": {
+          "columns": [
+            "dem_source",
+            "dem_source_observed_fraction"
+          ],
+          "mean_delta_mae": 0.009236031638251485,
+          "sd_delta_mae": 0.006571163363595141
+        },
+        "Context": {
+          "columns": [
+            "crop",
+            "region",
+            "campaign"
+          ],
+          "mean_delta_mae": 0.03157235364430956,
+          "sd_delta_mae": 0.028093428412640273
+        }
+      }
+    },
+    "CNN-LSTM": {
+      "evaluation_role": "validation",
+      "n": 15,
+      "repetitions": 30,
+      "seed": 20261106,
+      "groups": {
+        "Window_1": {
+          "columns": [
+            "B01_source_t0",
+            "B01_observations_t0",
+            "B02_source_t0",
+            "B02_observations_t0",
+            "B03_source_t0",
+            "B03_observations_t0",
+            "B04_source_t0",
+            "B04_observations_t0",
+            "B05_source_t0",
+            "B05_observations_t0",
+            "B06_source_t0",
+            "B06_observations_t0",
+            "B07_source_t0",
+            "B07_observations_t0",
+            "B08_source_t0",
+            "B08_observations_t0",
+            "B09_source_t0",
+            "B09_observations_t0",
+            "B11_source_t0",
+            "B11_observations_t0",
+            "B12_source_t0",
+            "B12_observations_t0",
+            "B8A_source_t0",
+            "B8A_observations_t0"
+          ],
+          "mean_delta_mae": 0.0038744375440810256,
+          "sd_delta_mae": 0.0016930167887027618
+        },
+        "Window_2": {
+          "columns": [
+            "B01_source_t1",
+            "B01_observations_t1",
+            "B02_source_t1",
+            "B02_observations_t1",
+            "B03_source_t1",
+            "B03_observations_t1",
+            "B04_source_t1",
+            "B04_observations_t1",
+            "B05_source_t1",
+            "B05_observations_t1",
+            "B06_source_t1",
+            "B06_observations_t1",
+            "B07_source_t1",
+            "B07_observations_t1",
+            "B08_source_t1",
+            "B08_observations_t1",
+            "B09_source_t1",
+            "B09_observations_t1",
+            "B11_source_t1",
+            "B11_observations_t1",
+            "B12_source_t1",
+            "B12_observations_t1",
+            "B8A_source_t1",
+            "B8A_observations_t1"
+          ],
+          "mean_delta_mae": 0.002855689790513871,
+          "sd_delta_mae": 0.0025126600786426847
+        },
+        "Window_3": {
+          "columns": [
+            "B01_source_t2",
+            "B01_observations_t2",
+            "B02_source_t2",
+            "B02_observations_t2",
+            "B03_source_t2",
+            "B03_observations_t2",
+            "B04_source_t2",
+            "B04_observations_t2",
+            "B05_source_t2",
+            "B05_observations_t2",
+            "B06_source_t2",
+            "B06_observations_t2",
+            "B07_source_t2",
+            "B07_observations_t2",
+            "B08_source_t2",
+            "B08_observations_t2",
+            "B09_source_t2",
+            "B09_observations_t2",
+            "B11_source_t2",
+            "B11_observations_t2",
+            "B12_source_t2",
+            "B12_observations_t2",
+            "B8A_source_t2",
+            "B8A_observations_t2"
+          ],
+          "mean_delta_mae": 0.01295889132159822,
+          "sd_delta_mae": 0.0286113286133178
+        },
+        "Window_4": {
+          "columns": [
+            "B01_source_t3",
+            "B01_observations_t3",
+            "B02_source_t3",
+            "B02_observations_t3",
+            "B03_source_t3",
+            "B03_observations_t3",
+            "B04_source_t3",
+            "B04_observations_t3",
+            "B05_source_t3",
+            "B05_observations_t3",
+            "B06_source_t3",
+            "B06_observations_t3",
+            "B07_source_t3",
+            "B07_observations_t3",
+            "B08_source_t3",
+            "B08_observations_t3",
+            "B09_source_t3",
+            "B09_observations_t3",
+            "B11_source_t3",
+            "B11_observations_t3",
+            "B12_source_t3",
+            "B12_observations_t3",
+            "B8A_source_t3",
+            "B8A_observations_t3"
+          ],
+          "mean_delta_mae": -0.011701412200927833,
+          "sd_delta_mae": 0.008211965613200355
+        },
+        "Soil": {
+          "columns": [
+            "clay_0_5_source",
+            "clay_0_5_source_observed_fraction",
+            "sand_0_5_source",
+            "sand_0_5_source_observed_fraction",
+            "silt_0_5_source",
+            "silt_0_5_source_observed_fraction",
+            "phh2o_0_5_source",
+            "phh2o_0_5_source_observed_fraction",
+            "soc_0_5_source",
+            "soc_0_5_source_observed_fraction",
+            "nitrogen_0_5_source",
+            "nitrogen_0_5_source_observed_fraction"
+          ],
+          "mean_delta_mae": 0.2803441429700821,
+          "sd_delta_mae": 0.08473623049290868
+        },
+        "DEM": {
+          "columns": [
+            "dem_source",
+            "dem_source_observed_fraction"
+          ],
+          "mean_delta_mae": 0.011238721211751386,
+          "sd_delta_mae": 0.0069598425270495775
+        },
+        "Context": {
+          "columns": [
+            "crop",
+            "region",
+            "campaign"
+          ],
+          "mean_delta_mae": 0.08638303834323052,
+          "sd_delta_mae": 0.03391424526785523
+        }
+      }
+    },
+    "CNN-Transformer": {
+      "evaluation_role": "validation",
+      "n": 15,
+      "repetitions": 30,
+      "seed": 20261106,
+      "groups": {
+        "Window_1": {
+          "columns": [
+            "B01_source_t0",
+            "B01_observations_t0",
+            "B02_source_t0",
+            "B02_observations_t0",
+            "B03_source_t0",
+            "B03_observations_t0",
+            "B04_source_t0",
+            "B04_observations_t0",
+            "B05_source_t0",
+            "B05_observations_t0",
+            "B06_source_t0",
+            "B06_observations_t0",
+            "B07_source_t0",
+            "B07_observations_t0",
+            "B08_source_t0",
+            "B08_observations_t0",
+            "B09_source_t0",
+            "B09_observations_t0",
+            "B11_source_t0",
+            "B11_observations_t0",
+            "B12_source_t0",
+            "B12_observations_t0",
+            "B8A_source_t0",
+            "B8A_observations_t0"
+          ],
+          "mean_delta_mae": -0.004867905622925169,
+          "sd_delta_mae": 0.005424479352367277
+        },
+        "Window_2": {
+          "columns": [
+            "B01_source_t1",
+            "B01_observations_t1",
+            "B02_source_t1",
+            "B02_observations_t1",
+            "B03_source_t1",
+            "B03_observations_t1",
+            "B04_source_t1",
+            "B04_observations_t1",
+            "B05_source_t1",
+            "B05_observations_t1",
+            "B06_source_t1",
+            "B06_observations_t1",
+            "B07_source_t1",
+            "B07_observations_t1",
+            "B08_source_t1",
+            "B08_observations_t1",
+            "B09_source_t1",
+            "B09_observations_t1",
+            "B11_source_t1",
+            "B11_observations_t1",
+            "B12_source_t1",
+            "B12_observations_t1",
+            "B8A_source_t1",
+            "B8A_observations_t1"
+          ],
+          "mean_delta_mae": -0.007819502088758793,
+          "sd_delta_mae": 0.007265867170712848
+        },
+        "Window_3": {
+          "columns": [
+            "B01_source_t2",
+            "B01_observations_t2",
+            "B02_source_t2",
+            "B02_observations_t2",
+            "B03_source_t2",
+            "B03_observations_t2",
+            "B04_source_t2",
+            "B04_observations_t2",
+            "B05_source_t2",
+            "B05_observations_t2",
+            "B06_source_t2",
+            "B06_observations_t2",
+            "B07_source_t2",
+            "B07_observations_t2",
+            "B08_source_t2",
+            "B08_observations_t2",
+            "B09_source_t2",
+            "B09_observations_t2",
+            "B11_source_t2",
+            "B11_observations_t2",
+            "B12_source_t2",
+            "B12_observations_t2",
+            "B8A_source_t2",
+            "B8A_observations_t2"
+          ],
+          "mean_delta_mae": 0.005957573784722126,
+          "sd_delta_mae": 0.006161687728327528
+        },
+        "Window_4": {
+          "columns": [
+            "B01_source_t3",
+            "B01_observations_t3",
+            "B02_source_t3",
+            "B02_observations_t3",
+            "B03_source_t3",
+            "B03_observations_t3",
+            "B04_source_t3",
+            "B04_observations_t3",
+            "B05_source_t3",
+            "B05_observations_t3",
+            "B06_source_t3",
+            "B06_observations_t3",
+            "B07_source_t3",
+            "B07_observations_t3",
+            "B08_source_t3",
+            "B08_observations_t3",
+            "B09_source_t3",
+            "B09_observations_t3",
+            "B11_source_t3",
+            "B11_observations_t3",
+            "B12_source_t3",
+            "B12_observations_t3",
+            "B8A_source_t3",
+            "B8A_observations_t3"
+          ],
+          "mean_delta_mae": -0.004249897003173916,
+          "sd_delta_mae": 0.004303076408410059
+        },
+        "Soil": {
+          "columns": [
+            "clay_0_5_source",
+            "clay_0_5_source_observed_fraction",
+            "sand_0_5_source",
+            "sand_0_5_source_observed_fraction",
+            "silt_0_5_source",
+            "silt_0_5_source_observed_fraction",
+            "phh2o_0_5_source",
+            "phh2o_0_5_source_observed_fraction",
+            "soc_0_5_source",
+            "soc_0_5_source_observed_fraction",
+            "nitrogen_0_5_source",
+            "nitrogen_0_5_source_observed_fraction"
+          ],
+          "mean_delta_mae": 0.3233572209224821,
+          "sd_delta_mae": 0.08498404837374063
+        },
+        "DEM": {
+          "columns": [
+            "dem_source",
+            "dem_source_observed_fraction"
+          ],
+          "mean_delta_mae": 0.0015890248616535392,
+          "sd_delta_mae": 0.0014405285505781258
+        },
+        "Context": {
+          "columns": [
+            "crop",
+            "region",
+            "campaign"
+          ],
+          "mean_delta_mae": 0.043353649007897524,
+          "sd_delta_mae": 0.028945072521361446
+        }
+      }
+    }
+  },
+  "analysis_note": "Frozen models; no retraining. Post hoc grouped permutation on 2020 validation only; descriptive, non-causal, not SHAP. No held-out test tuning."
+}

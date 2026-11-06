@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-06",
+  "frozen_models_verified": 5,
+  "dataset_rows": 184,
+  "bundle_files_verified": 18,
+  "permutation_model_group_pairs_verified": 35,
+  "permutations_per_group": 30,
+  "prediction_verification_atol": 1e-05,
+  "paired_tests_and_bootstrap_verified": true,
+  "new_training_models": 5,
+  "new_training_test_metric_absolute_differences": {
+    "RandomForest": {
+      "mae": 2.220446049250313e-16,
+      "rmse": 0.0,
+      "r2": 2.220446049250313e-16
+    },
+    "XGBoost": {
+      "mae": 0.0,
+      "rmse": 0.0,
+      "r2": 0.0
+    },
+    "LSTM": {
+      "mae": 0.0,
+      "rmse": 0.0,
+      "r2": 0.0
+    },
+    "CNN-LSTM": {
+      "mae": 0.0,
+      "rmse": 0.0,
+      "r2": 0.0
+    },
+    "CNN-Transformer": {
+      "mae": 0.0,
+      "rmse": 0.0,
+      "r2": 0.0
+    }
+  },
+  "original_artifacts_overwritten": false,
+  "original_dataset_publicly_deposited": false,
+  "trained_weights_publicly_deposited": false,
+  "external_archive_doi": null
+}

@@ -22,6 +22,7 @@ artifacts/
 *.sqlite
 *.sqlite3
 *.db
+*.joblib
 inspection.json
 inspection_quality.json
 yieldsat_wheat_240d_export.zip
