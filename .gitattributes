@@ -1,0 +1,9 @@
+* text=auto eol=lf
+# Preserve exact bytes: the publication API checks SHA-256 hashes.
+docs/manuscrito/** -text
+*.docx binary
+*.xlsx binary
+*.pdf binary
+*.png binary
+*.tiff binary
+*.zip binary

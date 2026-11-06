@@ -1,0 +1,748 @@
+{
+  "title": "Evaluación temporal del rendimiento de trigo con satélite y suelo: piloto reproducible en Alemania",
+  "affiliation": "Universidad Nacional de Trujillo",
+  "language": "es",
+  "dataset_id": 9,
+  "dataset_sha256": "fa9496d9598896042152d3bd669edd1290384630f0e880d79fdde483aee0e2e1",
+  "model_ids": {
+    "RandomForest": 14,
+    "XGBoost": 15,
+    "LSTM": 16,
+    "CNN-LSTM": 17,
+    "CNN-Transformer": 18
+  },
+  "scientific_status": "Estudio piloto retrospectivo; sin validación externa ni clima integrado",
+  "figures": [
+    {
+      "id": 1,
+      "title": "Flujo auditable del experimento y su despliegue",
+      "caption": "Flujo de procesamiento y aplicación del piloto de trigo de Alemania. El corte óptico es siembra + 240 días; se excluyen cuatro registros con siembra derivada de cosecha. Las flechas indican flujo de trabajo, no relaciones causales. La evaluación principal reserva 2021–2022.",
+      "interpretation": "Se distinguen fuente remota, agregación, entrenamiento congelado y aplicación. La existencia de una interfaz funcional no demuestra precisión agronómica.",
+      "limitations": "El perfil usa agregados por registro, sin parches espaciales ni clima integrado. No representa un ensayo prospectivo de campo.",
+      "png": "figura_01_600dpi.png",
+      "tiff": "figura_01_600dpi.tiff",
+      "pdf": "figura_01.pdf",
+      "preview": "figura_01_vista.png",
+      "dpi": 600,
+      "width_px": 4320,
+      "height_px": 3240
+    },
+    {
+      "id": 2,
+      "title": "Composición de la cohorte y desplazamiento del objetivo",
+      "caption": "Distribución de los 184 registros por campaña (a), granja y partición (b), y rendimiento observado (c). Entrenamiento n=132, validación n=15 y prueba n=37. Las cajas muestran mediana y rango intercuartílico; bigotes de Tukey (1,5 RIC). En prueba, 36 registros son de farm2 y uno de farm6.",
+      "interpretation": "La cobertura temporal no implica diversidad espacial. El objetivo medio baja de 9,977 t/ha en entrenamiento a 8,528 t/ha en prueba, un desplazamiento descriptivo del objetivo.",
+      "limitations": "Las granjas no tienen tamaños comparables y solo dos aparecen en prueba. No se acredita identidad física longitudinal de los identificadores ni causalidad del cambio temporal.",
+      "png": "figura_02_600dpi.png",
+      "tiff": "figura_02_600dpi.tiff",
+      "pdf": "figura_02.pdf",
+      "preview": "figura_02_vista.png",
+      "dpi": 600,
+      "width_px": 4320,
+      "height_px": 2100
+    },
+    {
+      "id": 3,
+      "title": "Precisión descriptiva e incertidumbre del MAE",
+      "caption": "MAE de los cinco modelos en 37 registros de 2021–2022, con intervalos percentiles del 95 % mediante 2.000 remuestreos de identificadores (a), y R² sobre los mismos registros (b). La referencia predice la media del entrenamiento (9,977 t/ha; MAE de prueba 1,500 t/ha). Los intervalos no incorporan dependencia dentro de granja.",
+      "interpretation": "CNN-LSTM tiene el menor MAE observado (0,998 t/ha), pero todos los R² son negativos. Mejorar la referencia de entrenamiento no equivale a explicar la variación del conjunto de prueba.",
+      "limitations": "El orden por MAE se observa después de evaluar; no es una selección validada de arquitectura. Estos intervalos son del MAE agregado, no de predicciones individuales.",
+      "png": "figura_03_600dpi.png",
+      "tiff": "figura_03_600dpi.tiff",
+      "pdf": "figura_03.pdf",
+      "preview": "figura_03_vista.png",
+      "dpi": 600,
+      "width_px": 4320,
+      "height_px": 2100
+    },
+    {
+      "id": 4,
+      "title": "Concordancia entre rendimientos observados y predichos",
+      "caption": "Predicciones congeladas de los cinco modelos y la referencia constante para los mismos 37 registros de prueba. Cada punto es un registro, coloreado por campaña; la línea discontinua representa identidad. Los ejes comparten la misma escala para evitar comparaciones visuales engañosas.",
+      "interpretation": "La distancia a la diagonal representa error individual. La compresión de las predicciones hacia valores centrales ayuda a explicar por qué un MAE moderado coexiste con R² negativo.",
+      "limitations": "Los puntos no son 37 unidades independientes verificadas. No se dibujan intervalos individuales porque no se estimaron; el color de campaña no demuestra un mecanismo climático.",
+      "png": "figura_04_600dpi.png",
+      "tiff": "figura_04_600dpi.tiff",
+      "pdf": "figura_04.pdf",
+      "preview": "figura_04_vista.png",
+      "dpi": 600,
+      "width_px": 4320,
+      "height_px": 4020
+    },
+    {
+      "id": 5,
+      "title": "Contrastes pareados y corrección por multiplicidad",
+      "caption": "Valores p de diez contrastes Wilcoxon bilaterales sobre errores absolutos por identificador, ajustados por Holm como una sola familia. El asterisco indica p ajustada <0,05. Friedman se calculó sobre la matriz de pérdidas de los mismos 37 identificadores, con aproximación χ² y cuatro grados de libertad.",
+      "interpretation": "Solo CNN-LSTM frente a CNN-Transformer cruza el umbral ajustado (p=0,02026). La p global de Friedman (0,03483) no identifica por sí sola qué modelos difieren; W=0,06998 indica escasa separación de rangos.",
+      "limitations": "La dependencia por granja limita los contrastes; con cinco modelos, la aproximación asintótica también exige cautela. Una p alta no demuestra equivalencia ni una p pequeña garantiza utilidad agronómica.",
+      "png": "figura_05_600dpi.png",
+      "tiff": "figura_05_600dpi.tiff",
+      "pdf": "figura_05.pdf",
+      "preview": "figura_05_vista.png",
+      "dpi": 600,
+      "width_px": 4320,
+      "height_px": 3000
+    },
+    {
+      "id": 6,
+      "title": "Interpretabilidad mediante permutación agrupada en validación",
+      "caption": "Cambio medio del MAE al permutar conjuntamente cada grupo de entradas en los 15 registros de validación de 2020. Se usan 30 permutaciones con semilla 20261106, iguales para cada modelo/grupo. Panel a: medias de cinco modelos; panel b: media ± desviación estándar de CNN-LSTM. Los grupos V1–V4 incluyen bandas y contadores por ventana; Suelo incluye seis propiedades y sus indicadores; Contexto incluye cultivo, región y campaña.",
+      "interpretation": "En CNN-LSTM, el grupo de suelo produce el mayor aumento medio del MAE (0,280 ± 0,085 t/ha). La sensibilidad a las ventanas ópticas es pequeña o negativa en esta muestra. Esto describe dependencia del modelo, no contribución causal de cada propiedad.",
+      "limitations": "Análisis posterior de validación pequeña; las permutaciones pueden romper dependencias entre grupos. Las barras son DE entre permutaciones, no intervalos de confianza. No es SHAP ni una ablación con reentrenamiento; valores negativos no justifican eliminar variables sin otra evaluación.",
+      "png": "figura_06_600dpi.png",
+      "tiff": "figura_06_600dpi.tiff",
+      "pdf": "figura_06.pdf",
+      "preview": "figura_06_vista.png",
+      "dpi": 600,
+      "width_px": 4320,
+      "height_px": 2760
+    }
+  ],
+  "tables": [
+    {
+      "id": 1,
+      "title": "Cohorte elegible por campaña y partición",
+      "headers": [
+        "Campaña",
+        "Partición",
+        "n",
+        "Granjas",
+        "Media",
+        "DE",
+        "Mín.",
+        "Máx."
+      ],
+      "rows": [
+        [
+          "2016",
+          "Entrenamiento",
+          "27",
+          "5",
+          "10.882",
+          "1.963",
+          "5.837",
+          "14.400"
+        ],
+        [
+          "2017",
+          "Entrenamiento",
+          "28",
+          "5",
+          "10.820",
+          "2.453",
+          "6.097",
+          "15.226"
+        ],
+        [
+          "2018",
+          "Entrenamiento",
+          "29",
+          "4",
+          "9.203",
+          "1.711",
+          "5.096",
+          "11.814"
+        ],
+        [
+          "2019",
+          "Entrenamiento",
+          "48",
+          "5",
+          "9.445",
+          "1.431",
+          "4.915",
+          "12.153"
+        ],
+        [
+          "2020",
+          "Validación",
+          "15",
+          "4",
+          "10.072",
+          "1.659",
+          "6.632",
+          "12.716"
+        ],
+        [
+          "2021",
+          "Prueba",
+          "20",
+          "2",
+          "8.346",
+          "1.307",
+          "5.407",
+          "10.113"
+        ],
+        [
+          "2022",
+          "Prueba",
+          "17",
+          "1",
+          "8.742",
+          "1.180",
+          "5.437",
+          "10.364"
+        ]
+      ],
+      "note": "Rendimiento en t/ha; DE: desviación estándar muestral. Total 184 registros; las granjas se repiten entre campañas. No son 184 parcelas físicas longitudinales verificadas."
+    },
+    {
+      "id": 2,
+      "title": "Operacionalización de las 113 entradas",
+      "headers": [
+        "Grupo",
+        "Variables",
+        "Entradas",
+        "Disponibilidad",
+        "Ventanas vacías B02"
+      ],
+      "rows": [
+        [
+          "Ventana 1",
+          "12 medias de banda + 12 contadores",
+          "24",
+          "0–<60 días",
+          "23"
+        ],
+        [
+          "Ventana 2",
+          "12 medias de banda + 12 contadores",
+          "24",
+          "60–<120 días",
+          "75"
+        ],
+        [
+          "Ventana 3",
+          "12 medias de banda + 12 contadores",
+          "24",
+          "120–<180 días",
+          "14"
+        ],
+        [
+          "Ventana 4",
+          "12 medias de banda + 12 contadores",
+          "24",
+          "180–240 días",
+          "2"
+        ],
+        [
+          "Suelo superficial",
+          "Arcilla, arena, limo, pH, SOC, N + indicadores",
+          "12",
+          "Estático, unidades fuente",
+          "0"
+        ],
+        [
+          "Elevación",
+          "DEM + indicador de disponibilidad",
+          "2",
+          "Estático, unidades fuente",
+          "0"
+        ],
+        [
+          "Contexto",
+          "Cultivo, región y campaña; one-hot",
+          "3",
+          "Categorías del registro",
+          "No aplica"
+        ],
+        [
+          "Excluidos",
+          "Clima, índices calibrados y parches espaciales",
+          "0",
+          "Fuera de este perfil",
+          "No aplica"
+        ]
+      ],
+      "note": "Los intervalos ópticos usan la variable times por píxel; día 240 incluido. Cero + contador cero representa falta de observación, no reflectancia medida. Los siete indicadores estáticos valen 1 en todos los registros; no se eliminaron ni se reentrenó. No se atribuyen unidades físicas nuevas a los predictores."
+    },
+    {
+      "id": 3,
+      "title": "Configuración de los modelos congelados",
+      "headers": [
+        "Modelo",
+        "ID",
+        "Configuración",
+        "Épocas",
+        "Tiempo (s)"
+      ],
+      "rows": [
+        [
+          "Random Forest",
+          "14",
+          "160 árboles; hoja mínima 2; profundidad sin límite; n_jobs=-1",
+          "No aplica",
+          "1.573"
+        ],
+        [
+          "XGBoost",
+          "15",
+          "180 árboles; profundidad 4; lr=0,05; subsample=0,9; colsample=0,9; hist",
+          "No aplica",
+          "0.868"
+        ],
+        [
+          "LSTM",
+          "16",
+          "1 capa LSTM, 32 unidades; último estado + estáticos; MLP 32→1",
+          "30",
+          "13.010"
+        ],
+        [
+          "CNN-LSTM",
+          "17",
+          "Conv1D 24→32, kernel 3, padding 1; LSTM 32; MLP 32→1",
+          "30",
+          "4.657"
+        ],
+        [
+          "CNN-Transformer",
+          "18",
+          "Conv1D 24→32; 1 encoder, 4 cabezas, FFN 64, dropout 0,1; media temporal + MLP",
+          "30",
+          "1.573"
+        ]
+      ],
+      "note": "Redes: entrada 4×24 y 24 estáticos tras codificación; Adam lr=0,003, MSE, minibatch≤64, semilla 42, CPU. Normalización/imputación ajustadas solo en entrenamiento; árboles sin escalado. No hubo Optuna ni parada temprana. Tiempo de una ejecución registrado por el sistema, no benchmark controlado de hardware."
+    },
+    {
+      "id": 4,
+      "title": "Validación y desempeño final en los mismos 37 registros de prueba",
+      "headers": [
+        "Modelo",
+        "MAE val.",
+        "MAE prueba",
+        "IC 95 % MAE",
+        "RMSE prueba",
+        "R² prueba",
+        "MAPE %"
+      ],
+      "rows": [
+        [
+          "Random Forest",
+          "1.508",
+          "1.201",
+          "[0.873; 1.581]",
+          "1.647",
+          "-0.787",
+          "16.51"
+        ],
+        [
+          "XGBoost",
+          "1.078",
+          "1.335",
+          "[0.988; 1.728]",
+          "1.789",
+          "-1.108",
+          "17.83"
+        ],
+        [
+          "LSTM",
+          "1.207",
+          "1.098",
+          "[0.827; 1.418]",
+          "1.437",
+          "-0.359",
+          "14.08"
+        ],
+        [
+          "CNN-LSTM",
+          "1.151",
+          "0.998",
+          "[0.713; 1.325]",
+          "1.380",
+          "-0.254",
+          "13.85"
+        ],
+        [
+          "CNN-Transformer",
+          "1.020",
+          "1.210",
+          "[0.912; 1.555]",
+          "1.590",
+          "-0.666",
+          "16.63"
+        ],
+        [
+          "Media de entrenamiento",
+          "1.207",
+          "1.500",
+          "No estimado",
+          "1.902",
+          "-1.383",
+          "20.56"
+        ]
+      ],
+      "note": "MAE/RMSE/IC en t/ha. IC exploratorios por identificador (2.000 remuestreos), sin corrección por granja. La referencia usa únicamente la media de entrenamiento. El menor MAE de validación corresponde a CNN-Transformer; el menor MAE de prueba, observado a posteriori, a CNN-LSTM."
+    },
+    {
+      "id": 5,
+      "title": "Comparaciones Wilcoxon bilaterales y ajuste de Holm",
+      "headers": [
+        "Pareja A / B",
+        "Mediana Δ MAE",
+        "p original",
+        "p Holm",
+        "p Holm<0,05"
+      ],
+      "rows": [
+        [
+          "Random Forest / XGBoost",
+          "-0.1414",
+          "0.05873",
+          "0.41111",
+          "No"
+        ],
+        [
+          "Random Forest / LSTM",
+          "0.0244",
+          "0.54054",
+          "1.00000",
+          "No"
+        ],
+        [
+          "Random Forest / CNN-LSTM",
+          "0.2434",
+          "0.02334",
+          "0.18669",
+          "No"
+        ],
+        [
+          "Random Forest / CNN-Transformer",
+          "0.0335",
+          "0.64378",
+          "1.00000",
+          "No"
+        ],
+        [
+          "XGBoost / LSTM",
+          "0.1292",
+          "0.14480",
+          "0.86882",
+          "No"
+        ],
+        [
+          "XGBoost / CNN-LSTM",
+          "0.3157",
+          "0.00834",
+          "0.07502",
+          "No"
+        ],
+        [
+          "XGBoost / CNN-Transformer",
+          "0.0044",
+          "0.38591",
+          "1.00000",
+          "No"
+        ],
+        [
+          "LSTM / CNN-LSTM",
+          "0.1251",
+          "0.28778",
+          "1.00000",
+          "No"
+        ],
+        [
+          "LSTM / CNN-Transformer",
+          "-0.0342",
+          "0.57065",
+          "1.00000",
+          "No"
+        ],
+        [
+          "CNN-LSTM / CNN-Transformer",
+          "-0.3404",
+          "0.00203",
+          "0.02026",
+          "Sí"
+        ]
+      ],
+      "note": "Δ=error absoluto A−B en t/ha; negativo favorece A en la mediana. Familia de diez comparaciones. Friedman χ²(4)=10,3568; p≈0,03483; W=0,06998. Valores exploratorios, sujetos a dependencia por granja y aproximación asintótica; no prueban equivalencia ni superioridad universal."
+    },
+    {
+      "id": 6,
+      "title": "Sensibilidad agrupada: cambio del MAE en validación",
+      "headers": [
+        "Grupo",
+        "Random Forest",
+        "XGBoost",
+        "LSTM",
+        "CNN-LSTM",
+        "CNN-Transformer"
+      ],
+      "rows": [
+        [
+          "Ventana 1 0–<60 días",
+          "-0.0567 ± 0.2093",
+          "0.2817 ± 0.1942",
+          "0.3386 ± 0.1401",
+          "0.0039 ± 0.0017",
+          "-0.0049 ± 0.0054"
+        ],
+        [
+          "Ventana 2 60–<120 días",
+          "0.0061 ± 0.0240",
+          "-0.0166 ± 0.0346",
+          "0.0203 ± 0.0618",
+          "0.0029 ± 0.0025",
+          "-0.0078 ± 0.0073"
+        ],
+        [
+          "Ventana 3 120–<180 días",
+          "-0.0319 ± 0.0541",
+          "0.0773 ± 0.0640",
+          "0.1401 ± 0.0685",
+          "0.0130 ± 0.0286",
+          "0.0060 ± 0.0062"
+        ],
+        [
+          "Ventana 4 180–240 días",
+          "-0.0445 ± 0.0317",
+          "-0.0088 ± 0.0818",
+          "-0.0613 ± 0.0551",
+          "-0.0117 ± 0.0082",
+          "-0.0042 ± 0.0043"
+        ],
+        [
+          "Suelo",
+          "0.1699 ± 0.1143",
+          "0.3199 ± 0.1785",
+          "0.1373 ± 0.0774",
+          "0.2803 ± 0.0847",
+          "0.3234 ± 0.0850"
+        ],
+        [
+          "Elevación",
+          "0.0014 ± 0.0152",
+          "-0.0030 ± 0.0029",
+          "0.0092 ± 0.0066",
+          "0.0112 ± 0.0070",
+          "0.0016 ± 0.0014"
+        ],
+        [
+          "Contexto",
+          "0.0480 ± 0.0215",
+          "0.0440 ± 0.0268",
+          "0.0316 ± 0.0281",
+          "0.0864 ± 0.0339",
+          "0.0434 ± 0.0289"
+        ]
+      ],
+      "note": "Media ± DE de 30 permutaciones, n=15 (2020), t/ha; semilla 20261106. No son IC ni valores p. Un Δ positivo indica deterioro al permutar el grupo; un Δ negativo indica mejora bajo esa perturbación. Interpretabilidad posterior, no causal ni SHAP; todos los modelos permanecen congelados."
+    }
+  ],
+  "files": {
+    "articulo_trigo_yieldsat.docx": {
+      "path": "articulo_trigo_yieldsat.docx",
+      "sha256": "c360a8e557c550c321832ac715685f0411d25f387a87913d263016addc1a9f3b",
+      "bytes": 2066465
+    },
+    "articulo_trigo_yieldsat.md": {
+      "path": "articulo_trigo_yieldsat.md",
+      "sha256": "a707ba9f99c1886712c2c1bbd7db9260bb096a73ca78b42a0aa5e4524f198a00",
+      "bytes": 47485
+    },
+    "articulo_trigo_yieldsat.pdf": {
+      "path": "articulo_trigo_yieldsat.pdf",
+      "sha256": "36dce1f57201a82d6ee2879df8a9c477406ed7fdf2f0d34c087932f6ddbf0347",
+      "bytes": 2758986
+    },
+    "CONTROL_NORMAS.md": {
+      "path": "CONTROL_NORMAS.md",
+      "sha256": "182c30a91110539dec74eaee1741a395acab131b54ce47536ae7ce957159c5f5",
+      "bytes": 3371
+    },
+    "matriz_literatura.csv": {
+      "path": "matriz_literatura.csv",
+      "sha256": "f0a134f373864e13f9782219f8ad5fa8991047b54a123528fcb8c19afb6bb89b",
+      "bytes": 1151
+    },
+    "README.md": {
+      "path": "README.md",
+      "sha256": "a6e3f51dba67cadf7670d092b50130540bdb0e0cce2b42963a0aefcb984af13e",
+      "bytes": 4743
+    },
+    "referencias.ris": {
+      "path": "referencias.ris",
+      "sha256": "5c6ea89d0d4566e3c9fe03cfc10c35735bf6c73b43ad153792eb094837b9ad82",
+      "bytes": 5362
+    },
+    "referencias_verificadas.json": {
+      "path": "referencias_verificadas.json",
+      "sha256": "e49748022c293dfb292dd477e6f8e4eb08b63e8a6ec0f95e40521f95de77595d",
+      "bytes": 41248
+    },
+    "REGISTRO_BUSQUEDA.md": {
+      "path": "REGISTRO_BUSQUEDA.md",
+      "sha256": "fa72ac3f49a01e5bd74ef8bde9cf24a808836fdc98509e38b63aeebde7a310b1",
+      "bytes": 4394
+    },
+    "tablas_articulo.xlsx": {
+      "path": "tablas_articulo.xlsx",
+      "sha256": "8ae7ebfb3864ae6784dcd5e7efe9810fd90d6381ea023d86e575a33fa98fe530",
+      "bytes": 11722
+    },
+    "figura_01.pdf": {
+      "path": "figuras/figura_01.pdf",
+      "sha256": "3d66e4b017348caf6313a5074268fa826a55494283c0ec121128c1cafd2d7cb5",
+      "bytes": 17612
+    },
+    "figura_01_600dpi.png": {
+      "path": "figuras/figura_01_600dpi.png",
+      "sha256": "8de9bbc5b3b3fe5ca06068aec3d6e1dfd3462a293a16961bb6c84f5cee280c46",
+      "bytes": 507871
+    },
+    "figura_01_600dpi.tiff": {
+      "path": "figuras/figura_01_600dpi.tiff",
+      "sha256": "974788a296b566999db4b43c9969c0c126025aa153a39bf365f0b14457469a1a",
+      "bytes": 1324526
+    },
+    "figura_01_vista.png": {
+      "path": "figuras/figura_01_vista.png",
+      "sha256": "3fbe983d024d185ed292cc9cfbde11de21021c31a9cda032f624a6ad6d48eb07",
+      "bytes": 98768
+    },
+    "figura_02.pdf": {
+      "path": "figuras/figura_02.pdf",
+      "sha256": "ba29d2a6e689e99b74c67ddb19a015dfa372e6c24ce7e42195c1c312bc828102",
+      "bytes": 15149
+    },
+    "figura_02_600dpi.png": {
+      "path": "figuras/figura_02_600dpi.png",
+      "sha256": "5bc90436b6163ea4aafbb54004afd0fb4b105855fe23f1e6f0a583cbea3d1926",
+      "bytes": 243767
+    },
+    "figura_02_600dpi.tiff": {
+      "path": "figuras/figura_02_600dpi.tiff",
+      "sha256": "e0774beeaedb32edff1f5d2123f7752e2d47f6b1064f2e388d0f6836f656f0fa",
+      "bytes": 861954
+    },
+    "figura_02_vista.png": {
+      "path": "figuras/figura_02_vista.png",
+      "sha256": "e34a35dc27f457f31823f8cca7b31e2c467643f1c3ed893bc786169f5ee8b98a",
+      "bytes": 44125
+    },
+    "figura_03.pdf": {
+      "path": "figuras/figura_03.pdf",
+      "sha256": "8cf0c39e26b9152b22f500d8ab5b43732dc2fce9720012f715c8b308c05e29e9",
+      "bytes": 16261
+    },
+    "figura_03_600dpi.png": {
+      "path": "figuras/figura_03_600dpi.png",
+      "sha256": "c49ac95a6c66f07544f7bc94928a6442d7ede653bf0e13a00984e11ef2847702",
+      "bytes": 200189
+    },
+    "figura_03_600dpi.tiff": {
+      "path": "figuras/figura_03_600dpi.tiff",
+      "sha256": "a98cda93847d769f4cec1709b7975d69fada4cfd5cf4217037fd80f398ec90ae",
+      "bytes": 658476
+    },
+    "figura_03_vista.png": {
+      "path": "figuras/figura_03_vista.png",
+      "sha256": "61d329f7fb21f96d14a140203dbedf8d8febed3b458b17b6739c9d8f509f2710",
+      "bytes": 38624
+    },
+    "figura_04.pdf": {
+      "path": "figuras/figura_04.pdf",
+      "sha256": "0ad2db3f6c88d50df67d2eaf1a4d497d4e7055b7fd502ea03416945fac63efe9",
+      "bytes": 22171
+    },
+    "figura_04_600dpi.png": {
+      "path": "figuras/figura_04_600dpi.png",
+      "sha256": "e838a02e7788624efe51c44ec26c650ca00c13038e0a058cbdb31edc187f8985",
+      "bytes": 563200
+    },
+    "figura_04_600dpi.tiff": {
+      "path": "figuras/figura_04_600dpi.tiff",
+      "sha256": "431b15425934d48adb6342fc64570196605222bf1ce7772b91c8c8ce91295bfe",
+      "bytes": 1226870
+    },
+    "figura_04_vista.png": {
+      "path": "figuras/figura_04_vista.png",
+      "sha256": "87658898aa8d6c3445487ddde2a50d307296e1846931a962f4c5a8a4061fc08c",
+      "bytes": 92969
+    },
+    "figura_05.pdf": {
+      "path": "figuras/figura_05.pdf",
+      "sha256": "20964df53447019200c7c071a1adc3068b25a6bcb2cfb9d3ca1b7c9e9e304848",
+      "bytes": 16981
+    },
+    "figura_05_600dpi.png": {
+      "path": "figuras/figura_05_600dpi.png",
+      "sha256": "bc9a24b9fb10ec0f10b9c01e12184fb5f2652eb2f06c39fd0f584e4baa5c9e07",
+      "bytes": 387878
+    },
+    "figura_05_600dpi.tiff": {
+      "path": "figuras/figura_05_600dpi.tiff",
+      "sha256": "dfdbeebf4864298490cf6fc2535d5a28ccad60bf144e23a0e22a64a71d0aab2c",
+      "bytes": 1588110
+    },
+    "figura_05_vista.png": {
+      "path": "figuras/figura_05_vista.png",
+      "sha256": "02cd2a91912848e9b13bd3aa59057c0801696730108ef32114db06c295cc1498",
+      "bytes": 67786
+    },
+    "figura_06.pdf": {
+      "path": "figuras/figura_06.pdf",
+      "sha256": "4773bc55fd54e17ad753616cba0cad39df9569ab42753913c637b2890d62a82b",
+      "bytes": 20406
+    },
+    "figura_06_600dpi.png": {
+      "path": "figuras/figura_06_600dpi.png",
+      "sha256": "b905bbeda16355f062c7c32a4850a65830f44597e8041f403bcc20ea115dfa1a",
+      "bytes": 466037
+    },
+    "figura_06_600dpi.tiff": {
+      "path": "figuras/figura_06_600dpi.tiff",
+      "sha256": "45a76e23cb4ef0c356440076723e97a3d1782da88153f29fb0fbf043848391d1",
+      "bytes": 1545884
+    },
+    "figura_06_vista.png": {
+      "path": "figuras/figura_06_vista.png",
+      "sha256": "49f49ead1cb275ac88d2eb95c4efb3d5302467853eb1db7b16ff11426e8115f1",
+      "bytes": 88823
+    },
+    "tabla_01.csv": {
+      "path": "tablas/tabla_01.csv",
+      "sha256": "6ec85bb25a50aec80cda1cdeb62bf94a413ab950e07f9e5dd6db2c182e446594",
+      "bytes": 392
+    },
+    "tabla_02.csv": {
+      "path": "tablas/tabla_02.csv",
+      "sha256": "3ff720e5b71dc5113d550c26bde2b4acfdd77da0b6c66ebcbf974756cf7cc319",
+      "bytes": 696
+    },
+    "tabla_03.csv": {
+      "path": "tablas/tabla_03.csv",
+      "sha256": "f5ef90bd97f71f10c2cde0fbe993654c56755e1f197211931232565c6ed5daef",
+      "bytes": 529
+    },
+    "tabla_04.csv": {
+      "path": "tablas/tabla_04.csv",
+      "sha256": "4072ff2ed13058647c7ec3cf08e22437c1f7c8df7323f2019052c180c102fcea",
+      "bytes": 427
+    },
+    "tabla_05.csv": {
+      "path": "tablas/tabla_05.csv",
+      "sha256": "d755e280c1b69f8ebd02a468936fefaf6b6222702580ce9ea9822316d319a630",
+      "bytes": 566
+    },
+    "tabla_06.csv": {
+      "path": "tablas/tabla_06.csv",
+      "sha256": "0561560a5a43ad4e01a98f312f6ffa62909d1c58d57d65982ad7d6f28cb8d1c3",
+      "bytes": 804
+    },
+    "figuras_y_tablas_600dpi.zip": {
+      "path": "figuras_y_tablas_600dpi.zip",
+      "sha256": "2964880fdecb58296d65f634249deaaf5b9e71d849b931602cf995a5a5ef8841",
+      "bytes": 6363784
+    }
+  },
+  "generated_at_utc": "2026-11-06T20:30:02.833749+00:00",
+  "editorial_pending": [
+    "Nombres, ORCID y correspondencia de autores",
+    "Facultad/departamento",
+    "Revista y estilo editorial final",
+    "Declaraciones de financiación, conflictos y términos de difusión"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "name": "WF-06 - Salud de la API",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      },
+      "id": "5e630506-5f1b-4e0e-911c-d17717e70d73",
+      "name": "Cada 15 minutos",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:8000/health",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "cfb0ade1-a073-44d4-aab2-5eb15c3738ed",
+      "name": "Consultar salud",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.status !== 'ok' || $json.database !== 'ok') { throw new Error('La API o la base de datos no están sanas'); } return $input.all();"
+      },
+      "id": "10dc4eea-afda-4988-b2b8-3894382aa142",
+      "name": "Validar estado",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 300]
+    }
+  ],
+  "connections": {
+    "Cada 15 minutos": {
+      "main": [[{"node": "Consultar salud", "type": "main", "index": 0}]]
+    },
+    "Consultar salud": {
+      "main": [[{"node": "Validar estado", "type": "main", "index": 0}]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Lima"
+  },
+  "pinData": {},
+  "tags": []
+}

@@ -1,0 +1,1586 @@
+{
+  "checked_at_utc": "2026-11-06T20:22:22.677356+00:00",
+  "references": {
+    "pathak2023": {
+      "doi": "10.1109/igarss52108.2023.10282318",
+      "title": [
+        "Predicting Crop Yield with Machine Learning: An Extensive Analysis of Input Modalities and Models on a Field and Sub-Field Level"
+      ],
+      "authors": [
+        {
+          "given": "Deepak",
+          "family": "Pathak",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "University of Kaiserslautern-Landau (RPTU),Kaiserslautern,Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Miro",
+          "family": "Miranda",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "University of Kaiserslautern-Landau (RPTU),Kaiserslautern,Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Francisco",
+          "family": "Mena",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "University of Kaiserslautern-Landau (RPTU),Kaiserslautern,Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Cristhian",
+          "family": "Sanchez",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "University of Kaiserslautern-Landau (RPTU),Kaiserslautern,Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Patrick",
+          "family": "Helber",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Vision Impulse GmbH,Kaiserslautern,Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Benjamin",
+          "family": "Bischke",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Vision Impulse GmbH,Kaiserslautern,Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Peter",
+          "family": "Habelitz",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Vision Impulse GmbH,Kaiserslautern,Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Hiba",
+          "family": "Najjar",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "University of Kaiserslautern-Landau (RPTU),Kaiserslautern,Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Jayanth",
+          "family": "Siddamsetty",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "German Research Center for Artificial Intelligence (DFKI),Kaiserslautern,Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Diego",
+          "family": "Arenas",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "German Research Center for Artificial Intelligence (DFKI),Kaiserslautern,Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Michaela",
+          "family": "Vollmer",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "German Research Center for Artificial Intelligence (DFKI),Kaiserslautern,Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Marcela",
+          "family": "Charfuelan",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "German Research Center for Artificial Intelligence (DFKI),Kaiserslautern,Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Marlon",
+          "family": "Nuske",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "German Research Center for Artificial Intelligence (DFKI),Kaiserslautern,Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Andreas",
+          "family": "Dengel",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "University of Kaiserslautern-Landau (RPTU),Kaiserslautern,Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "journal": [
+        "IGARSS 2023 - 2023 IEEE International Geoscience and Remote Sensing Symposium"
+      ],
+      "volume": null,
+      "issue": null,
+      "page": "2767-2770",
+      "article_number": null,
+      "published": {
+        "date-parts": [
+          [
+            2023,
+            7,
+            16
+          ]
+        ]
+      },
+      "url": "https://doi.org/10.1109/igarss52108.2023.10282318",
+      "verification": "Crossref DOI registry"
+    },
+    "kallenberg2026": {
+      "doi": "10.5194/essd-18-3997-2026",
+      "title": [
+        "CY-Bench: a comprehensive benchmark dataset for sub-national crop yield forecasting"
+      ],
+      "authors": [
+        {
+          "ORCID": "https://orcid.org/0000-0002-4661-6674",
+          "authenticated-orcid": false,
+          "given": "Michiel",
+          "family": "Kallenberg",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "id": [
+                {
+                  "id": "https://ror.org/04qw24q55",
+                  "id-type": "ROR",
+                  "asserted-by": "publisher"
+                }
+              ],
+              "name": "Wageningen University & Research (Wageningen, Netherlands)"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            },
+            {
+              "role": "corresponding-author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Dilli",
+          "family": "Paudel",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Stella",
+          "family": "Ofori-Ampofo",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-6995-3817",
+          "authenticated-orcid": false,
+          "given": "Hilmy",
+          "family": "Baja",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Ron",
+          "family": "van Bree",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0009-0008-7812-3293",
+          "authenticated-orcid": false,
+          "given": "Aike",
+          "family": "Potze",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Pratishtha",
+          "family": "Poudel",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Abdelrahman",
+          "family": "Saleh",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-3755-9943",
+          "authenticated-orcid": false,
+          "given": "Weston",
+          "family": "Anderson",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Malte",
+          "family": "von Bloh",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Andres",
+          "family": "Castellano",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Oumnia",
+          "family": "Ennaji",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-2243-3109",
+          "authenticated-orcid": false,
+          "given": "Raed",
+          "family": "Hamed",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-5859-4030",
+          "authenticated-orcid": false,
+          "given": "Rahel",
+          "family": "Laudien",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Donghoon",
+          "family": "Lee",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Inti",
+          "family": "Luna",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-5654-1277",
+          "authenticated-orcid": false,
+          "given": "Dainius",
+          "family": "Masiliūnas",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Michele",
+          "family": "Meroni",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Janet Mumo",
+          "family": "Mutuku",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Siyabusa",
+          "family": "Mkuhlani",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Jonathan",
+          "family": "Richetti",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-5582-9217",
+          "authenticated-orcid": false,
+          "given": "Alex C.",
+          "family": "Ruane",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-6418-289X",
+          "authenticated-orcid": false,
+          "given": "Ritvik",
+          "family": "Sahajpal",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Guanyuan",
+          "family": "Shuai",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-5506-2872",
+          "authenticated-orcid": false,
+          "given": "Vasileios",
+          "family": "Sitokonstantinou",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Rogério de S.",
+          "family": "Nóia-Júnior",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-8219-4854",
+          "authenticated-orcid": false,
+          "given": "Amit Kumar",
+          "family": "Srivastava",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-5279-4808",
+          "authenticated-orcid": false,
+          "given": "Robert",
+          "family": "Strong",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-9971-6102",
+          "authenticated-orcid": false,
+          "given": "Lily-belle",
+          "family": "Sweet",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Petar",
+          "family": "Vojnović",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Allard",
+          "family": "de Wit",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Maximilian",
+          "family": "Zachow",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-2764-0078",
+          "authenticated-orcid": false,
+          "given": "Ioannis N.",
+          "family": "Athanasiadis",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "journal": [
+        "Earth System Science Data"
+      ],
+      "volume": "18",
+      "issue": "6",
+      "page": "3997-4018",
+      "article_number": null,
+      "published": {
+        "date-parts": [
+          [
+            2026,
+            6,
+            11
+          ]
+        ]
+      },
+      "url": "https://doi.org/10.5194/essd-18-3997-2026",
+      "verification": "Crossref DOI registry"
+    },
+    "khaki2020": {
+      "doi": "10.3389/fpls.2019.01750",
+      "title": [
+        "A CNN-RNN Framework for Crop Yield Prediction"
+      ],
+      "authors": [
+        {
+          "given": "Saeed",
+          "family": "Khaki",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Lizhi",
+          "family": "Wang",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Sotirios V.",
+          "family": "Archontoulis",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "journal": [
+        "Frontiers in Plant Science"
+      ],
+      "volume": "10",
+      "issue": null,
+      "page": null,
+      "article_number": "1750",
+      "published": {
+        "date-parts": [
+          [
+            2020,
+            1,
+            24
+          ]
+        ]
+      },
+      "url": "https://doi.org/10.3389/fpls.2019.01750",
+      "verification": "Crossref DOI registry"
+    },
+    "roberts2017": {
+      "doi": "10.1111/ecog.02881",
+      "title": [
+        "Cross‐validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure"
+      ],
+      "authors": [
+        {
+          "given": "David R.",
+          "family": "Roberts",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "Dept of Biometry and Environmental System Analysis Univ. of Freiburg Freiburg Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Volker",
+          "family": "Bahn",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Dept of Biological Sciences Wright State Univ. Dayton OH USA"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Simone",
+          "family": "Ciuti",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Dept of Biometry and Environmental System Analysis Univ. of Freiburg Freiburg Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Mark S.",
+          "family": "Boyce",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Dept of Biological Sciences Univ. of Alberta Edmonton AB Canada"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Jane",
+          "family": "Elith",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "School of BioSciences, Univ. of Melbourne Melbourne Australia"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Gurutzeta",
+          "family": "Guillera‐Arroita",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "School of BioSciences, Univ. of Melbourne Melbourne Australia"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Severin",
+          "family": "Hauenstein",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Dept of Biometry and Environmental System Analysis Univ. of Freiburg Freiburg Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "José J.",
+          "family": "Lahoz‐Monfort",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "School of BioSciences, Univ. of Melbourne Melbourne Australia"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Boris",
+          "family": "Schröder",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Inst. of Geoecology, Div. of Landscape Ecology and Environmental Systems Analysis, Technische Univ. Braunschweig, Braunschweig, Germany, and: Berlin‐Brandenburg Inst. of Advanced Biodiversity Research (BBIB) Berlin Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Wilfried",
+          "family": "Thuiller",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Lab. d’Écologie Alpine, Univ. Joseph Fourier Grenoble France"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "David I.",
+          "family": "Warton",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "School of Mathematics and Statistics and Evolution and Ecology Research Centre, The Univ. of New South Wales Sydney Australia"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Brendan A.",
+          "family": "Wintle",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "School of BioSciences, Univ. of Melbourne Melbourne Australia"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Florian",
+          "family": "Hartig",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Dept of Biometry and Environmental System Analysis Univ. of Freiburg Freiburg Germany"
+            },
+            {
+              "name": "Theoretical Ecology, Univ. of Regensburg Regensburg Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Carsten F.",
+          "family": "Dormann",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Dept of Biometry and Environmental System Analysis Univ. of Freiburg Freiburg Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "journal": [
+        "Ecography"
+      ],
+      "volume": "40",
+      "issue": "8",
+      "page": "913-929",
+      "article_number": null,
+      "published": {
+        "date-parts": [
+          [
+            2017,
+            3,
+            3
+          ]
+        ]
+      },
+      "url": "https://doi.org/10.1111/ecog.02881",
+      "verification": "Crossref DOI registry"
+    },
+    "breiman2001": {
+      "doi": "10.1023/a:1010933404324",
+      "title": [
+        "Random Forests"
+      ],
+      "authors": [
+        {
+          "given": "Leo",
+          "family": "Breiman",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "journal": [
+        "Machine Learning"
+      ],
+      "volume": "45",
+      "issue": "1",
+      "page": "5-32",
+      "article_number": null,
+      "published": {
+        "date-parts": [
+          [
+            2001,
+            10
+          ]
+        ]
+      },
+      "url": "https://doi.org/10.1023/a:1010933404324",
+      "verification": "Crossref DOI registry"
+    },
+    "chen2016": {
+      "doi": "10.1145/2939672.2939785",
+      "title": [
+        "XGBoost"
+      ],
+      "authors": [
+        {
+          "given": "Tianqi",
+          "family": "Chen",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "University of Washington, Seattle, WA, USA"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Carlos",
+          "family": "Guestrin",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "University of Washington, Seattle, WA, USA"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "journal": [
+        "Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining"
+      ],
+      "volume": null,
+      "issue": null,
+      "page": "785-794",
+      "article_number": null,
+      "published": {
+        "date-parts": [
+          [
+            2016,
+            8,
+            13
+          ]
+        ]
+      },
+      "url": "https://doi.org/10.1145/2939672.2939785",
+      "verification": "Crossref DOI registry"
+    },
+    "hochreiter1997": {
+      "doi": "10.1162/neco.1997.9.8.1735",
+      "title": [
+        "Long Short-Term Memory"
+      ],
+      "authors": [
+        {
+          "given": "Sepp",
+          "family": "Hochreiter",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "Fakultät für Informatik, Technische Universität München, 80290 München, Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Jürgen",
+          "family": "Schmidhuber",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "IDSIA, Corso Elvezia 36, 6900 Lugano, Switzerland"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "journal": [
+        "Neural Computation"
+      ],
+      "volume": "9",
+      "issue": "8",
+      "page": "1735-1780",
+      "article_number": null,
+      "published": {
+        "date-parts": [
+          [
+            1997,
+            11,
+            1
+          ]
+        ]
+      },
+      "url": "https://doi.org/10.1162/neco.1997.9.8.1735",
+      "verification": "Crossref DOI registry"
+    },
+    "friedman1937": {
+      "doi": "10.1080/01621459.1937.10503522",
+      "title": [
+        "The Use of Ranks to Avoid the Assumption of Normality Implicit in the Analysis of Variance"
+      ],
+      "authors": [
+        {
+          "given": "Milton",
+          "family": "Friedman",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "journal": [
+        "Journal of the American Statistical Association"
+      ],
+      "volume": "32",
+      "issue": "200",
+      "page": "675-701",
+      "article_number": null,
+      "published": {
+        "date-parts": [
+          [
+            1937,
+            12
+          ]
+        ]
+      },
+      "url": "https://doi.org/10.1080/01621459.1937.10503522",
+      "verification": "Crossref DOI registry"
+    },
+    "wilcoxon1945": {
+      "doi": "10.2307/3001968",
+      "title": [
+        "Individual Comparisons by Ranking Methods"
+      ],
+      "authors": [
+        {
+          "given": "Frank",
+          "family": "Wilcoxon",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "journal": [
+        "Biometrics Bulletin"
+      ],
+      "volume": "1",
+      "issue": "6",
+      "page": "80–83",
+      "article_number": null,
+      "published": {
+        "date-parts": [
+          [
+            1945,
+            12
+          ]
+        ]
+      },
+      "url": "https://doi.org/10.2307/3001968",
+      "verification": "Crossref DOI registry; original scan https://sci2s.ugr.es/keel/pdf/algorithm/articulo/wilcoxon1945.pdf",
+      "crossref_page": "80"
+    },
+    "efron1979": {
+      "doi": "10.1214/aos/1176344552",
+      "title": [
+        "Bootstrap Methods: Another Look at the Jackknife"
+      ],
+      "authors": [
+        {
+          "given": "B.",
+          "family": "Efron",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "journal": [
+        "The Annals of Statistics"
+      ],
+      "volume": "7",
+      "issue": "1",
+      "page": "1-26",
+      "article_number": null,
+      "published": {
+        "date-parts": [
+          [
+            1979,
+            1,
+            1
+          ]
+        ]
+      },
+      "url": "https://doi.org/10.1214/aos/1176344552",
+      "verification": "Crossref DOI registry"
+    },
+    "altmann2010": {
+      "doi": "10.1093/bioinformatics/btq134",
+      "title": [
+        "Permutation importance: a corrected feature importance measure"
+      ],
+      "authors": [
+        {
+          "given": "André",
+          "family": "Altmann",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "Department of Computational Biology and Applied Algorithmics, Max Planck Institute for Informatics, Saarbrücken, Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Laura",
+          "family": "Toloşi",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Department of Computational Biology and Applied Algorithmics, Max Planck Institute for Informatics, Saarbrücken, Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Oliver",
+          "family": "Sander",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Department of Computational Biology and Applied Algorithmics, Max Planck Institute for Informatics, Saarbrücken, Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Thomas",
+          "family": "Lengauer",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Department of Computational Biology and Applied Algorithmics, Max Planck Institute for Informatics, Saarbrücken, Germany"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "journal": [
+        "Bioinformatics"
+      ],
+      "volume": "26",
+      "issue": "10",
+      "page": "1340-1347",
+      "article_number": null,
+      "published": {
+        "date-parts": [
+          [
+            2010,
+            4,
+            12
+          ]
+        ]
+      },
+      "url": "https://doi.org/10.1093/bioinformatics/btq134",
+      "verification": "Crossref DOI registry"
+    },
+    "kapoor2023": {
+      "doi": "10.1016/j.patter.2023.100804",
+      "title": [
+        "Leakage and the reproducibility crisis in machine-learning-based science"
+      ],
+      "authors": [
+        {
+          "ORCID": "https://orcid.org/0000-0001-5695-280X",
+          "authenticated-orcid": false,
+          "given": "Sayash",
+          "family": "Kapoor",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Arvind",
+          "family": "Narayanan",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "journal": [
+        "Patterns"
+      ],
+      "volume": "4",
+      "issue": "9",
+      "page": "100804",
+      "article_number": "100804",
+      "published": {
+        "date-parts": [
+          [
+            2023,
+            9
+          ]
+        ]
+      },
+      "url": "https://doi.org/10.1016/j.patter.2023.100804",
+      "verification": "Crossref DOI registry"
+    },
+    "miranda2026": {
+      "title": [
+        "YieldSAT: A Multimodal Benchmark Dataset for High-Resolution Crop Yield Prediction"
+      ],
+      "authors": [
+        {
+          "family": "Miranda, M."
+        },
+        {
+          "family": "Pathak, D."
+        },
+        {
+          "family": "Helber, P."
+        },
+        {
+          "family": "Bischke, B."
+        },
+        {
+          "family": "Najjar, H."
+        },
+        {
+          "family": "Mena, F."
+        },
+        {
+          "family": "Sanchez, C."
+        },
+        {
+          "family": "Pai, A."
+        },
+        {
+          "family": "Arenas, D."
+        },
+        {
+          "family": "Valdenegro-Toro, M."
+        },
+        {
+          "family": "Charfuelan, M."
+        },
+        {
+          "family": "Nuske, M."
+        },
+        {
+          "family": "Dengel, A."
+        }
+      ],
+      "doi": "10.48550/arXiv.2604.00940",
+      "url": "https://arxiv.org/abs/2604.00940",
+      "year": 2026,
+      "journal": [
+        "arXiv, 2604.00940v1 (preprint)"
+      ],
+      "verification": "Read arXiv primary record and HTML v1; not a peer-reviewed publication"
+    },
+    "vaswani2017": {
+      "title": [
+        "Attention Is All You Need"
+      ],
+      "year": 2017,
+      "authors": [
+        {
+          "family": "Vaswani, A."
+        },
+        {
+          "family": "Shazeer, N."
+        },
+        {
+          "family": "Parmar, N."
+        },
+        {
+          "family": "Uszkoreit, J."
+        },
+        {
+          "family": "Jones, L."
+        },
+        {
+          "family": "Gomez, A. N."
+        },
+        {
+          "family": "Kaiser, Ł."
+        },
+        {
+          "family": "Polosukhin, I."
+        }
+      ],
+      "journal": [
+        "Advances in Neural Information Processing Systems"
+      ],
+      "volume": "30",
+      "page": "5998–6008",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html",
+      "verification": "Read official NeurIPS proceedings; no journal DOI asserted"
+    },
+    "holm1979": {
+      "title": [
+        "A Simple Sequentially Rejective Multiple Test Procedure"
+      ],
+      "year": 1979,
+      "authors": [
+        {
+          "family": "Holm",
+          "given": "Sture"
+        }
+      ],
+      "journal": [
+        "Scandinavian Journal of Statistics"
+      ],
+      "volume": "6",
+      "issue": "2",
+      "page": "65–70",
+      "url": "https://www.jstor.org/stable/4615733",
+      "verification": "Original paper scanned at University of Sao Paulo; no DOI asserted"
+    },
+    "scipy": {
+      "title": [
+        "friedmanchisquare — SciPy reference"
+      ],
+      "year": "s. f.",
+      "authors": [
+        {
+          "family": "SciPy"
+        }
+      ],
+      "journal": [
+        "Documentación oficial"
+      ],
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.friedmanchisquare.html",
+      "verification": "Read official API documentation and approximation warning on 2026-11-06"
+    },
+    "yieldsat_tutorial": {
+      "title": [
+        "YieldSAT machine learning tutorial"
+      ],
+      "year": "s. f.",
+      "authors": [
+        {
+          "family": "YieldSAT"
+        }
+      ],
+      "journal": [
+        "Documentación oficial del proyecto"
+      ],
+      "url": "https://yieldsat.github.io/notebooks/yieldsat-ml-tutorial.html",
+      "verification": "Official tutorial, target unit evidence; checked 2026-11-06"
+    }
+  }
+}

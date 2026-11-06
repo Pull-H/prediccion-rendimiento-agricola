@@ -1,0 +1,58 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_DB: agriculture
+      POSTGRES_USER: agriculture
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agriculture -d agriculture"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+      args:
+        INSTALL_TORCH: ${INSTALL_TORCH:-false}
+    environment:
+      DATABASE_URL: postgresql+psycopg://agriculture:${POSTGRES_PASSWORD}@db:5432/agriculture
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173}
+      DATA_DIR: /app/data
+      ARTIFACT_DIR: /app/artifacts
+      PUBLICATION_DIR: /app/publication
+    volumes:
+      - app_data:/app/data
+      - model_artifacts:/app/artifacts
+      - ./docs/manuscrito:/app/publication:ro
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:5173:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+volumes:
+  postgres_data:
+  app_data:
+  model_artifacts:

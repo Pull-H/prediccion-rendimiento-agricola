@@ -1,0 +1,5 @@
+﻿Referencia,Datos,Unidad,Enfoque,Evaluacion,Limite de comparacion,Fuente primaria
+"Miranda et al., 2026",YieldSAT,Pixel and field; multiple crops/countries,"Multimodal benchmark, fusion and deep ensembles",Source-defined benchmark; different from this pilot,Dataset distribution shifts; preprint,https://arxiv.org/abs/2604.00940
+"Pathak et al., 2023","Sentinel-2, weather, soil, DEM",Field and sub-field; includes German wheat,"Early fusion, LGBM and LSTM","10 grouped folds by field, stratified by farm","Different aggregation, modalities and split; not an external replication of this pilot",https://doi.org/10.1109/IGARSS52108.2023.10282318
+"Khaki et al., 2020",Agricultural environmental predictors,Crop yield forecasting,CNN-RNN,Protocol reported in original article,Architecture precedent; metrics not directly comparable across domains,https://doi.org/10.3389/fpls.2019.01750
+"Kallenberg et al., 2026",CY-Bench multimodal subnational data,Administrative units; maize/wheat,Dataset and forecasting benchmark,Temporal forecasting tasks,Regional units do not validate YieldSAT field-level transfer,https://doi.org/10.5194/essd-18-3997-2026

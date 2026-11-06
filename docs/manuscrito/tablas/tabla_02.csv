@@ -1,0 +1,9 @@
+﻿Grupo,Variables,Entradas,Disponibilidad,Ventanas vacías B02
+Ventana 1,12 medias de banda + 12 contadores,24,0–<60 días,23
+Ventana 2,12 medias de banda + 12 contadores,24,60–<120 días,75
+Ventana 3,12 medias de banda + 12 contadores,24,120–<180 días,14
+Ventana 4,12 medias de banda + 12 contadores,24,180–240 días,2
+Suelo superficial,"Arcilla, arena, limo, pH, SOC, N + indicadores",12,"Estático, unidades fuente",0
+Elevación,DEM + indicador de disponibilidad,2,"Estático, unidades fuente",0
+Contexto,"Cultivo, región y campaña; one-hot",3,Categorías del registro,No aplica
+Excluidos,"Clima, índices calibrados y parches espaciales",0,Fuera de este perfil,No aplica

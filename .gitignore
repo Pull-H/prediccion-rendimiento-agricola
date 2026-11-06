@@ -1,0 +1,36 @@
+# Local secrets and configuration
+.env
+.env.*
+!.env.example
+!frontend/.env.example
+*.pem
+*.key
+
+# Python and editor caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.serena/
+
+# Private datasets, training artifacts and database backups
+data/
+artifacts/
+*.dump
+*.sqlite
+*.sqlite3
+*.db
+inspection.json
+inspection_quality.json
+yieldsat_wheat_240d_export.zip
+docs/manuscrito/evidencia_modelos.json
+
+# Rebuildable frontend dependencies and output
+frontend/node_modules/
+frontend/dist/
+*.tsbuildinfo
+*.log
+.DS_Store
+Thumbs.db

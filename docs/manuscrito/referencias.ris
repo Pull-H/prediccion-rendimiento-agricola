@@ -1,0 +1,216 @@
+TY  - JOUR
+TI  - Permutation importance: a corrected feature importance measure
+PY  - 2010
+AU  - Altmann, André
+AU  - Toloşi, Laura
+AU  - Sander, Oliver
+AU  - Lengauer, Thomas
+DO  - 10.1093/bioinformatics/btq134
+UR  - https://doi.org/10.1093/bioinformatics/btq134
+ER  - 
+
+TY  - JOUR
+TI  - Random Forests
+PY  - 2001
+AU  - Breiman, Leo
+DO  - 10.1023/a:1010933404324
+UR  - https://doi.org/10.1023/a:1010933404324
+ER  - 
+
+TY  - JOUR
+TI  - XGBoost
+PY  - 2016
+AU  - Chen, Tianqi
+AU  - Guestrin, Carlos
+DO  - 10.1145/2939672.2939785
+UR  - https://doi.org/10.1145/2939672.2939785
+ER  - 
+
+TY  - JOUR
+TI  - Bootstrap Methods: Another Look at the Jackknife
+PY  - 1979
+AU  - Efron, B.
+DO  - 10.1214/aos/1176344552
+UR  - https://doi.org/10.1214/aos/1176344552
+ER  - 
+
+TY  - JOUR
+TI  - The Use of Ranks to Avoid the Assumption of Normality Implicit in the Analysis of Variance
+PY  - 1937
+AU  - Friedman, Milton
+DO  - 10.1080/01621459.1937.10503522
+UR  - https://doi.org/10.1080/01621459.1937.10503522
+ER  - 
+
+TY  - JOUR
+TI  - Long Short-Term Memory
+PY  - 1997
+AU  - Hochreiter, Sepp
+AU  - Schmidhuber, Jürgen
+DO  - 10.1162/neco.1997.9.8.1735
+UR  - https://doi.org/10.1162/neco.1997.9.8.1735
+ER  - 
+
+TY  - JOUR
+TI  - A Simple Sequentially Rejective Multiple Test Procedure
+PY  - 1979
+AU  - Holm, Sture
+UR  - https://www.jstor.org/stable/4615733
+ER  - 
+
+TY  - JOUR
+TI  - CY-Bench: a comprehensive benchmark dataset for sub-national crop yield forecasting
+PY  - 2026
+AU  - Kallenberg, Michiel
+AU  - Paudel, Dilli
+AU  - Ofori-Ampofo, Stella
+AU  - Baja, Hilmy
+AU  - van Bree, Ron
+AU  - Potze, Aike
+AU  - Poudel, Pratishtha
+AU  - Saleh, Abdelrahman
+AU  - Anderson, Weston
+AU  - von Bloh, Malte
+AU  - Castellano, Andres
+AU  - Ennaji, Oumnia
+AU  - Hamed, Raed
+AU  - Laudien, Rahel
+AU  - Lee, Donghoon
+AU  - Luna, Inti
+AU  - Masiliūnas, Dainius
+AU  - Meroni, Michele
+AU  - Mutuku, Janet Mumo
+AU  - Mkuhlani, Siyabusa
+AU  - Richetti, Jonathan
+AU  - Ruane, Alex C.
+AU  - Sahajpal, Ritvik
+AU  - Shuai, Guanyuan
+AU  - Sitokonstantinou, Vasileios
+AU  - Nóia-Júnior, Rogério de S.
+AU  - Srivastava, Amit Kumar
+AU  - Strong, Robert
+AU  - Sweet, Lily-belle
+AU  - Vojnović, Petar
+AU  - de Wit, Allard
+AU  - Zachow, Maximilian
+AU  - Athanasiadis, Ioannis N.
+DO  - 10.5194/essd-18-3997-2026
+UR  - https://doi.org/10.5194/essd-18-3997-2026
+ER  - 
+
+TY  - JOUR
+TI  - Leakage and the reproducibility crisis in machine-learning-based science
+PY  - 2023
+AU  - Kapoor, Sayash
+AU  - Narayanan, Arvind
+DO  - 10.1016/j.patter.2023.100804
+UR  - https://doi.org/10.1016/j.patter.2023.100804
+ER  - 
+
+TY  - JOUR
+TI  - A CNN-RNN Framework for Crop Yield Prediction
+PY  - 2020
+AU  - Khaki, Saeed
+AU  - Wang, Lizhi
+AU  - Archontoulis, Sotirios V.
+DO  - 10.3389/fpls.2019.01750
+UR  - https://doi.org/10.3389/fpls.2019.01750
+ER  - 
+
+TY  - JOUR
+TI  - YieldSAT: A Multimodal Benchmark Dataset for High-Resolution Crop Yield Prediction
+PY  - 2026
+AU  - Miranda, M.
+AU  - Pathak, D.
+AU  - Helber, P.
+AU  - Bischke, B.
+AU  - Najjar, H.
+AU  - Mena, F.
+AU  - Sanchez, C.
+AU  - Pai, A.
+AU  - Arenas, D.
+AU  - Valdenegro-Toro, M.
+AU  - Charfuelan, M.
+AU  - Nuske, M.
+AU  - Dengel, A.
+DO  - 10.48550/arXiv.2604.00940
+UR  - https://arxiv.org/abs/2604.00940
+ER  - 
+
+TY  - JOUR
+TI  - Predicting Crop Yield with Machine Learning: An Extensive Analysis of Input Modalities and Models on a Field and Sub-Field Level
+PY  - 2023
+AU  - Pathak, Deepak
+AU  - Miranda, Miro
+AU  - Mena, Francisco
+AU  - Sanchez, Cristhian
+AU  - Helber, Patrick
+AU  - Bischke, Benjamin
+AU  - Habelitz, Peter
+AU  - Najjar, Hiba
+AU  - Siddamsetty, Jayanth
+AU  - Arenas, Diego
+AU  - Vollmer, Michaela
+AU  - Charfuelan, Marcela
+AU  - Nuske, Marlon
+AU  - Dengel, Andreas
+DO  - 10.1109/igarss52108.2023.10282318
+UR  - https://doi.org/10.1109/igarss52108.2023.10282318
+ER  - 
+
+TY  - JOUR
+TI  - Cross‐validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure
+PY  - 2017
+AU  - Roberts, David R.
+AU  - Bahn, Volker
+AU  - Ciuti, Simone
+AU  - Boyce, Mark S.
+AU  - Elith, Jane
+AU  - Guillera‐Arroita, Gurutzeta
+AU  - Hauenstein, Severin
+AU  - Lahoz‐Monfort, José J.
+AU  - Schröder, Boris
+AU  - Thuiller, Wilfried
+AU  - Warton, David I.
+AU  - Wintle, Brendan A.
+AU  - Hartig, Florian
+AU  - Dormann, Carsten F.
+DO  - 10.1111/ecog.02881
+UR  - https://doi.org/10.1111/ecog.02881
+ER  - 
+
+TY  - JOUR
+TI  - friedmanchisquare — SciPy reference
+PY  - s. f.
+AU  - SciPy
+UR  - https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.friedmanchisquare.html
+ER  - 
+
+TY  - JOUR
+TI  - Attention Is All You Need
+PY  - 2017
+AU  - Vaswani, A.
+AU  - Shazeer, N.
+AU  - Parmar, N.
+AU  - Uszkoreit, J.
+AU  - Jones, L.
+AU  - Gomez, A. N.
+AU  - Kaiser, Ł.
+AU  - Polosukhin, I.
+UR  - https://proceedings.neurips.cc/paper_files/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html
+ER  - 
+
+TY  - JOUR
+TI  - Individual Comparisons by Ranking Methods
+PY  - 1945
+AU  - Wilcoxon, Frank
+DO  - 10.2307/3001968
+UR  - https://doi.org/10.2307/3001968
+ER  - 
+
+TY  - JOUR
+TI  - YieldSAT machine learning tutorial
+PY  - s. f.
+AU  - YieldSAT
+UR  - https://yieldsat.github.io/notebooks/yieldsat-ml-tutorial.html
+ER  - 

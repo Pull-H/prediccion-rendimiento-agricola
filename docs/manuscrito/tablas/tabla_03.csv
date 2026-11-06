@@ -1,0 +1,6 @@
+﻿Modelo,ID,Configuración,Épocas,Tiempo (s)
+Random Forest,14,160 árboles; hoja mínima 2; profundidad sin límite; n_jobs=-1,No aplica,1.573
+XGBoost,15,"180 árboles; profundidad 4; lr=0,05; subsample=0,9; colsample=0,9; hist",No aplica,0.868
+LSTM,16,"1 capa LSTM, 32 unidades; último estado + estáticos; MLP 32→1",30,13.010
+CNN-LSTM,17,"Conv1D 24→32, kernel 3, padding 1; LSTM 32; MLP 32→1",30,4.657
+CNN-Transformer,18,"Conv1D 24→32; 1 encoder, 4 cabezas, FFN 64, dropout 0,1; media temporal + MLP",30,1.573

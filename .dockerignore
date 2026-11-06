@@ -1,0 +1,10 @@
+.venv
+.env
+.git
+frontend/node_modules
+frontend/dist
+data
+artifacts
+__pycache__
+*.pyc
+*.docx

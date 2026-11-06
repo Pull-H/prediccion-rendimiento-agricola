@@ -1,0 +1,11 @@
+﻿Pareja A / B,Mediana Δ MAE,p original,p Holm,"p Holm<0,05"
+Random Forest / XGBoost,-0.1414,0.05873,0.41111,No
+Random Forest / LSTM,0.0244,0.54054,1.00000,No
+Random Forest / CNN-LSTM,0.2434,0.02334,0.18669,No
+Random Forest / CNN-Transformer,0.0335,0.64378,1.00000,No
+XGBoost / LSTM,0.1292,0.14480,0.86882,No
+XGBoost / CNN-LSTM,0.3157,0.00834,0.07502,No
+XGBoost / CNN-Transformer,0.0044,0.38591,1.00000,No
+LSTM / CNN-LSTM,0.1251,0.28778,1.00000,No
+LSTM / CNN-Transformer,-0.0342,0.57065,1.00000,No
+CNN-LSTM / CNN-Transformer,-0.3404,0.00203,0.02026,Sí
