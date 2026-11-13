@@ -8,10 +8,18 @@
 
 # Python and editor caches
 .venv/
+venv/
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.ipynb_checkpoints/
 .coverage
+.coverage.*
+coverage.xml
 htmlcov/
 .serena/
 
@@ -23,13 +31,44 @@ artifacts/
 *.sqlite3
 *.db
 *.joblib
+*.pkl
+*.pickle
+*.pt
+*.pth
+*.onnx
+*.nc
+*.nc4
+*.h5
+*.hdf5
+*.parquet
+*.npy
+*.npz
 inspection.json
 inspection_quality.json
 yieldsat_wheat_240d_export.zip
-docs/manuscrito/evidencia_modelos.json
+# Local documents, manuscripts, editorial material and generated study results
+/docs/
+/IMPLEMENTATION_STATUS.md
+*.docx
+*.pdf
+*.xlsx
+*.xls
+*.tiff
+*.zip
+*.7z
+*.rar
+~$*
+/reproducibility/SHA256SUMS
+/reproducibility/splits.csv
+/reproducibility/study.json
+/reproducibility/validation.json
+/reproducibility/zenodo_record.json
+/backend/tests/serve_research_preview.py
 
 # Rebuildable frontend dependencies and output
-frontend/node_modules/
+node_modules/
+frontend/.npm-cache/
+.npm/
 frontend/dist/
 *.tsbuildinfo
 *.log

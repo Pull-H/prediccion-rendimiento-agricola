@@ -104,6 +104,14 @@ def inspect_csv(path: str | Path) -> dict[str, Any]:
         "unique_regions": int(frame.region.nunique()),
         "synthetic_demo": _is_demo(frame),
         "spatial_unit": str(frame["spatial_unit"].iloc[0]) if "spatial_unit" in frame else None,
+        "duplicate_rows": int(frame.duplicated().sum()),
+        "target_summary": {str(k): float(v) for k, v in frame.yield_t_ha.describe().items()},
+        "numeric_summary": {
+            name: {str(k): float(v) if pd.notna(v) else None
+                   for k, v in frame[name].describe().items()} for name in features
+        },
+        "warnings": (["Muestra pequeña: resultados exploratorios; ajustar hiperparámetros no sustituye más datos."]
+                     if len(frame) < 500 else []),
     }
 
 
@@ -243,10 +251,13 @@ def _notify(progress: Callable | None, stage: str, percent: int) -> None:
 
 def train(path: str | Path, model_type: str, artifact_dir: str | Path, seed: int = 42,
           validation: str = "parcel", epochs: int = 5,
-          progress: Callable[[dict], None] | None = None) -> dict[str, Any]:
+          progress: Callable[[dict], None] | None = None,
+          hyperparameters: dict[str, Any] | None = None) -> dict[str, Any]:
     """Train and evaluate with disjoint group splits; save a reusable artifact."""
     started = time.monotonic()
     kind = _canonical_model(model_type)
+    from .tuning import validate_parameters
+    parameters = validate_parameters(kind, hyperparameters or {})
     if epochs < 1:
         raise ValueError("epochs must be at least 1")
     _notify(progress, "validating", 5)
@@ -267,8 +278,8 @@ def train(path: str | Path, model_type: str, artifact_dir: str | Path, seed: int
         "preprocessor": preprocessor, "sequence_schema": schema,
     }
     if kind == "RandomForest":
-        model = RandomForestRegressor(n_estimators=160, min_samples_leaf=2,
-                                      random_state=seed, n_jobs=-1)
+        model = RandomForestRegressor(**{"n_estimators": 160, "min_samples_leaf": 2,
+                                         **parameters}, random_state=seed, n_jobs=-1)
         model.fit(x_train, y[train_idx])
         predict_matrix = model.predict
         payload["model"] = model
@@ -278,60 +289,27 @@ def train(path: str | Path, model_type: str, artifact_dir: str | Path, seed: int
             from xgboost import XGBRegressor
         except ImportError as exc:
             raise RuntimeError("XGBoost is unavailable; install backend/ml-requirements.txt") from exc
-        model = XGBRegressor(n_estimators=180, max_depth=4, learning_rate=0.05,
-                             subsample=0.9, colsample_bytree=0.9, objective="reg:squarederror",
+        model = XGBRegressor(**{"n_estimators": 180, "max_depth": 4, "learning_rate": 0.05,
+                               "subsample": 0.9, "colsample_bytree": 0.9, **parameters}, objective="reg:squarederror",
                              random_state=seed, n_jobs=2, tree_method="hist")
         model.fit(x_train, y[train_idx], eval_set=[(x_val, y[val_idx])], verbose=False)
         predict_matrix = model.predict
         payload["model"] = model
         device = "cpu"
     else:
-        import torch
-        from .deep import TemporalRegressor
-
-        torch.manual_seed(seed)
-        if torch.cuda.is_available():
-            torch.cuda.manual_seed_all(seed)
-        device = "cuda" if torch.cuda.is_available() else "cpu"
-        seq_train, static_train = _deep_arrays(x_train, features, schema)
-        model = TemporalRegressor(kind, seq_train.shape[2], static_train.shape[1],
-                                  seq_train.shape[1]).to(device)
-        optimizer = torch.optim.Adam(model.parameters(), lr=0.003)
-        loss_fn = torch.nn.MSELoss()
-        dataset = torch.utils.data.TensorDataset(torch.from_numpy(seq_train),
-                                                  torch.from_numpy(static_train),
-                                                  torch.from_numpy(y[train_idx].astype(np.float32)))
-        loader = torch.utils.data.DataLoader(dataset, batch_size=min(64, len(dataset)),
-                                             shuffle=True, generator=torch.Generator().manual_seed(seed))
-        for epoch in range(epochs):
-            model.train()
-            for seq_batch, static_batch, target_batch in loader:
-                optimizer.zero_grad(set_to_none=True)
-                estimate = model(seq_batch.to(device), static_batch.to(device))
-                loss = loss_fn(estimate, target_batch.to(device))
-                loss.backward()
-                optimizer.step()
-            _notify(progress, "training", 25 + round(55 * (epoch + 1) / epochs))
-
-        def predict_matrix(matrix: np.ndarray) -> np.ndarray:
-            seq, static = _deep_arrays(matrix, features, schema)
-            model.eval()
-            with torch.no_grad():
-                return model(torch.from_numpy(seq).to(device),
-                             torch.from_numpy(static).to(device)).cpu().numpy()
-
-        payload["model_config"] = {
-            "sequence_channels": seq_train.shape[2], "static_features": static_train.shape[1],
-            "timesteps": seq_train.shape[1],
-        }
+        from .temporal_estimator import TemporalEstimator
+        settings = {"epochs": epochs, **parameters}
+        model = TemporalEstimator(kind, features, seed=seed, progress=progress, **settings)
+        model.fit(x_train, y[train_idx])
+        predict_matrix = model.predict
+        payload.update(model.payload())
+        device = "cpu"
     _notify(progress, "evaluating", 85)
     metrics = {
         "train": _metrics(y[train_idx], predict_matrix(x_train)),
         "validation": _metrics(y[val_idx], predict_matrix(x_val)),
         "test": _metrics(y[test_idx], predict_matrix(x_test)),
     }
-    if kind in DEEP_MODELS:
-        payload["state_dict"] = {key: value.detach().cpu() for key, value in model.state_dict().items()}
     artifact_root = Path(artifact_dir)
     artifact_root.mkdir(parents=True, exist_ok=True)
     run_id = uuid4().hex
@@ -340,16 +318,23 @@ def train(path: str | Path, model_type: str, artifact_dir: str | Path, seed: int
     joblib.dump(payload, tmp_path)
     os.replace(tmp_path, artifact_path)
     metadata = {
+        "hyperparameters": model.get_params() if kind not in DEEP_MODELS else settings,
+        "loss_history": model.loss_history_ if kind in DEEP_MODELS else [],
+        "baseline_metrics": {
+            name: _metrics(y[idx], np.full(len(idx), float(y[train_idx].mean())))
+            for name, idx in (("validation", val_idx), ("test", test_idx))
+        },
         "run_id": run_id, "model_type": kind, "artifact_path": str(artifact_path.resolve()),
         "feature_names": features + list(CATEGORIES),
         "numeric_feature_names": features, "categorical_features": list(CATEGORIES),
         "transformed_feature_names": list(preprocessor.get_feature_names_out()),
         "metrics": metrics, "split_info": split_info, "seed": seed,
-        "validation": validation, "epochs": epochs if kind in DEEP_MODELS else None,
+        "validation": validation, "epochs": settings["epochs"] if kind in DEEP_MODELS else None,
         "device": device, "training_seconds": round(time.monotonic() - started, 3),
         "source_path": str(Path(path).resolve()), "source_sha256": _sha256(path),
         "synthetic_demo": _is_demo(frame),
         "scientific_status": "synthetic demonstration only" if _is_demo(frame) else "evaluated on supplied data",
+        "calibration_reserved": True,
     }
     metadata_path = artifact_root / f"{run_id}.json"
     metadata_path.write_text(json.dumps(metadata, indent=2, ensure_ascii=False), encoding="utf-8")

@@ -47,6 +47,111 @@ def test_auth_rbac_and_audit():
         assert any(x["action"] == "auth.failed" for x in events)
         assert any(x["action"] == "navigation.enter" for x in events)
 
+
+def test_optuna_experiment_round_trip():
+    with TestClient(app) as client:
+        headers = login(client)
+        dataset = client.post("/api/datasets/demo", headers=headers).json()
+        body = {"dataset_id": dataset["id"], "model_type": "RandomForest", "tuning_trials": 1}
+        response = client.post("/api/experiments", headers=headers, json=body)
+        assert response.status_code == 202, response.text
+        experiment = client.get(f"/api/experiments/{response.json()['id']}").json()
+        assert experiment["status"] == "completed", experiment.get("error")
+        assert experiment["split_info"]["optimization"]["best_parameters"]
+        assert experiment["metrics"]["baseline_test"]["n"] > 0
+        model = next(m for m in client.get("/api/models").json()
+                     if m["experiment_id"] == experiment["id"])
+        options = client.get(f"/api/models/{model['id']}/prediction-inputs")
+        assert options.status_code == 200, options.text
+        assert {r["evaluation_role"] for r in options.json()["records"]} == {"train", "validation", "test"}
+        invalid = client.post("/api/experiments", headers=headers,
+                              json={**body, "tuning_trials": 0, "hyperparameters": {"n_jobs": 1000}})
+        assert invalid.status_code == 422
+
+
+def test_research_workspace_end_to_end():
+    with TestClient(app) as client:
+        headers = login(client)
+        dataset = client.post("/api/datasets/demo", headers=headers).json()
+        profile = client.get(f"/api/research/datasets/{dataset['id']}/profile")
+        assert profile.status_code == 200, profile.text
+        assert profile.json()["histograms"]["yield_t_ha"]
+        changed = client.patch(f"/api/research/datasets/{dataset['id']}/metadata", headers=headers,
+                               json={"name": "Research fixture", "source": "synthetic_demo", "license": "test", "provenance": "test-only"})
+        assert changed.status_code == 200
+        identities = []
+        for kind in ("RandomForest", "XGBoost"):
+            response = client.post("/api/experiments", headers=headers,
+                                   json={"dataset_id": dataset["id"], "model_type": kind})
+            experiment = client.get(f"/api/experiments/{response.json()['id']}").json()
+            assert experiment["status"] == "completed", experiment.get("error")
+            model = next(m for m in client.get("/api/models").json() if m["experiment_id"] == experiment["id"])
+            identities.append(model["id"])
+        model_id = identities[0]
+        base = f"/api/research/models/{model_id}"
+        evaluation = client.get(base + "/evaluation")
+        assert evaluation.status_code == 200, evaluation.text
+        assert evaluation.json()["interval"]["available"]
+        importance = client.get(base + "/permutation")
+        assert importance.status_code == 200 and importance.json()["values"]
+        attribution = client.post(base + "/explain", headers=headers, json={"record_id": 0})
+        assert attribution.status_code == 200, attribution.text
+        assert abs(attribution.json()["additivity_error"]) < 1e-6
+        features = client.get(f"/api/models/{model_id}/prediction-inputs/0").json()["features"]
+        batch = client.post(base + "/batch", headers=headers, json={"records": [features, features]})
+        assert batch.status_code == 200 and len(batch.json()["predictions"]) == 2
+        assert batch.json()["predictions"][0]["interval"] is not None
+        assert client.get(base + "/template.csv").status_code == 200
+        report = client.get(base + "/report.json")
+        assert report.status_code == 200, report.text
+        assert report.json()["dataset"]["name"] == "Research fixture"
+        figure = client.get(base + "/figure/residuals.png")
+        assert figure.status_code == 200 and figure.content.startswith(b"\x89PNG")
+        comparison = client.post("/api/research/compare", headers=headers, json={"model_ids": identities})
+        assert comparison.status_code == 200, comparison.text
+        assert len(comparison.json()["pairwise"]) == 1
+        assert 0 <= comparison.json()["pairwise"][0]["p_holm"] <= 1
+        assert client.get("/api/research/runtime").status_code == 200
+        login(client, "viewer@example.test")
+        viewer_headers = {"X-CSRF-Token": client.cookies.get("csrf_token")}
+        assert client.post(base + "/batch", headers=viewer_headers, json={"records": [features]}).status_code == 403
+        assert client.patch(f"/api/research/datasets/{dataset['id']}/metadata", headers=viewer_headers,
+                            json={"name": "bad", "source": "bad", "license": "", "provenance": ""}).status_code == 403
+
+
+def test_cancel_and_resume_persisted_search(monkeypatch):
+    from app.ml import tuning
+    from app.models import Experiment
+    original = tuning.optimize
+    def interrupt_once(*args, **kwargs):
+        progress = kwargs["progress"]
+        def cancel(update):
+            with SessionLocal() as db:
+                task = db.query(Experiment).filter(Experiment.status == "running").one()
+                task.status = "cancel_requested"
+                db.commit()
+            progress(update)
+        kwargs["progress"] = cancel
+        return original(*args, **kwargs)
+    with TestClient(app) as client:
+        headers = login(client)
+        dataset = client.post("/api/datasets/demo", headers=headers).json()
+        monkeypatch.setattr(tuning, "optimize", interrupt_once)
+        response = client.post("/api/experiments", headers=headers, json={
+            "dataset_id": dataset["id"], "model_type": "RandomForest", "tuning_trials": 1,
+            "outer_folds": 2, "inner_folds": 2})
+        identity = response.json()["id"]
+        experiment = client.get(f"/api/experiments/{identity}").json()
+        assert experiment["status"] == "cancelled", experiment
+        monkeypatch.setattr(tuning, "optimize", original)
+        resumed = client.post(f"/api/research/experiments/{identity}/resume", headers=headers)
+        assert resumed.status_code == 202, resumed.text
+        experiment = client.get(f"/api/experiments/{identity}").json()
+        assert experiment["status"] == "completed", experiment.get("error")
+        trials = client.get(f"/api/research/experiments/{identity}/trials")
+        assert trials.status_code == 200, trials.text
+        assert len(trials.json()["studies"]) == 3
+
 def test_demo_train_predict_and_reports():
     with TestClient(app) as client:
         headers = login(client)

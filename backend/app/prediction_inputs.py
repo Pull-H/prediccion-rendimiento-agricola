@@ -22,6 +22,9 @@ def input_context(db, model):
         if set(model.feature_names) != set(numeric + list(CATEGORIES)):
             raise ValueError("Las variables del dataset no coinciden con el modelo")
         train, validation, test, _ = _split(frame, experiment.validation, experiment.seed)
+        if metadata.get("split_info", {}).get("strategy") == "nested_cv_then_development_refit":
+            train = list(train) + list(validation)
+            validation = []
     except (OSError, ValueError, KeyError) as exc:
         raise HTTPException(409, f"No se pueden cargar las variables guardadas: {exc}") from exc
     roles = {int(index): role for role, indices in

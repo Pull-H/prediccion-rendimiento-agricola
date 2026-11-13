@@ -1,8 +1,12 @@
 # Predicción del rendimiento agrícola
 
-Plataforma de investigación para importar datos agrícolas, comparar cinco modelos, consultar predicciones y estudiar sus resultados estadísticos. Implementada con React/TypeScript, FastAPI y PostgreSQL/PostGIS.
+Plataforma de investigación para importar datos agrícolas, entrenar cinco modelos,
+evaluar resultados y consultar predicciones con explicaciones. Utiliza React y
+TypeScript, FastAPI y PostgreSQL/PostGIS.
 
-El estudio principal utiliza **184 registros de trigo de Alemania, de YieldSAT**, con variables satelitales y de suelo a 240 días de siembra. La integración climática no forma parte de este perfil. Los resultados son exploratorios: todos los modelos obtuvieron R² negativo en prueba y no existe validación en Perú. [Protocolo, métricas y límites](docs/YIELDSAT_WHEAT_PILOT.md).
+El repositorio distribuye el software, las migraciones, las pruebas y las herramientas
+de preparación de datos. Los datasets, modelos entrenados, documentos científicos,
+resultados particulares y respaldos se conservan localmente y se excluyen de Git.
 
 ## Ejecutar con Docker
 
@@ -10,80 +14,121 @@ Requisitos: Git, Docker y Docker Compose. Desde la raíz:
 
 ```powershell
 if (-not (Test-Path .env)) { Copy-Item .env.example .env }
-# Editar .env: establecer POSTGRES_PASSWORD y JWT_SECRET propios.
-# Configurar INSTALL_TORCH=true para utilizar los cinco modelos.
+# Establecer POSTGRES_PASSWORD y JWT_SECRET propios en .env.
+# Configurar INSTALL_TORCH=true para habilitar las tres redes temporales.
 docker compose up --build -d
 docker compose ps
 docker compose exec backend python -m app.bootstrap --email admin@example.org --name Administrador
 ```
 
-La última orden solicita una contraseña de al menos 12 caracteres. No existe una contraseña de administrador incluida en el repositorio.
+La última orden solicita una contraseña de al menos 12 caracteres. No se incluye
+una cuenta administradora ni una contraseña de producción en el código.
 
 - Aplicación: http://localhost:5173
-- API y documentación: http://localhost:8000/docs
+- Documentación interactiva de la API: http://localhost:8000/docs
 - Salud: http://localhost:8000/health
 - Detener conservando datos: `docker compose stop`
 
-Sin PyTorch (`INSTALL_TORCH=false`) pueden entrenarse Random Forest y XGBoost. Para LSTM, CNN-LSTM y CNN-Transformer active esa opción y reconstruya la imagen.
+Una instalación nueva comienza sin usuarios, datasets ni modelos. Los volúmenes
+`postgres_data`, `app_data` y `model_artifacts` conservan la información local.
+Antes de trasladar una instalación, respaldar los tres volúmenes de forma coherente;
+no incluir esos respaldos en Git. `docker compose down -v` elimina los volúmenes.
 
-**Una instalación nueva comienza sin usuarios, datasets ni modelos entrenados.** Git contiene el código y los materiales del artículo; los registros y modelos de la instalación actual permanecen en los volúmenes Docker. Para trasladarlos, consulte [despliegue y respaldos](docs/DEPLOYMENT.md). YieldSAT requiere acceso autorizado y sus archivos no se redistribuyen aquí.
-
-## Módulos
+## Funciones principales
 
 | Módulo | Función |
 | --- | --- |
-| Resumen | Indicadores y comparación de modelos del mismo estudio. |
-| Datasets | Importación y validación de CSV autorizados. |
-| Experimentos y modelos | Entrenamiento, métricas y versiones de cinco algoritmos. |
-| Predicciones | Selección de modelo, campaña y parcela con carga automática de variables. |
-| Pruebas estadísticas | Friedman, Wilcoxon pareado, ajuste de Holm e intervalos bootstrap. |
-| Artículo y figuras | Seis figuras con interpretación y descargas a 600 dpi, y seis tablas. |
-| Informes | Exportación de registros en PDF, DOCX y XLSX. |
+| Datasets | Importación CSV autorizada, metadatos y validación de calidad. |
+| Investigación | Exploración, entrenamiento, evaluación, explicabilidad, reportes, inferencia y Optuna. |
+| Laboratorio | Historial de experimentos y versiones de modelos. |
+| Predicciones | Consulta individual y recuperación de variables históricas. |
+| Pruebas estadísticas | Comparación pareada, corrección de Holm y bootstrap por bloques. |
+| Informes | Exportación PDF, Word y Excel. |
 | Consulta de resultados | Consultas estructuradas sobre registros; no utiliza un LLM. |
 | Usuarios y auditoría | Roles, sesiones y trazabilidad de acciones. |
 
-La carga automática recupera las variables del CSV original y verifica su hash. Las consultas sobre registros históricos no constituyen pronósticos de campañas nuevas. Los datos sintéticos se utilizan exclusivamente como fixtures de pruebas aisladas; su creación está deshabilitada en la aplicación habitual.
+Random Forest y XGBoost funcionan sin PyTorch. LSTM, CNN-LSTM y CNN-Transformer
+requieren PyTorch y secuencias temporales compatibles; sus convoluciones son 1D.
+Un CSV tabular no se convierte automáticamente en imágenes satelitales.
 
-## Estructura
+El módulo opcional **Artículo y figuras** utiliza materiales locales en
+`docs/manuscrito/`, montados por Compose como `/app/publication`. Requiere un
+`catalogo_publicacion.json` válido y sus archivos asociados. Esos materiales no
+se incluyen al clonar; su ausencia no impide entrenar, predecir o generar nuevos
+informes en Investigación. La documentación extensa de `docs/` también es local.
 
-```text
-backend/app/          API, autenticación, modelos y análisis estadístico
-backend/alembic/      Migraciones de base de datos
-backend/tests/        Pruebas unitarias y recorridos de integración
-backend/research/     Generación y comprobación del artículo y las figuras
-frontend/             Interfaz React/TypeScript y configuración Nginx
-notebooks/            Preparación y exportación autorizada en Colab
-workflows/            Control de salud opcional para n8n
-docs/                 Arquitectura, operación y metodología
-docs/manuscrito/      Artículo, tablas, figuras y catálogo de integridad
-```
+## Datos y protocolo de investigación
 
-`tema (2).docx` y `Normas.docx` se conservan como fuentes de los requisitos científicos y editoriales. Los formatos originales de las figuras se conservan porque el módulo los sirve con comprobación de hash.
+El CSV de entrada requiere `parcel_id`, `crop`, `region`, `campaign`, `yield_t_ha`
+y al menos una variable numérica. La carga web admite UTF-8 y hasta 20 MB.
+Las variables temporales deben usar nombres como `ndvi_t0`, `ndvi_t1`, etc.
+El objetivo se expresa en t/ha. La unidad de análisis debe declararse correctamente;
+una región administrativa no es una parcela.
 
-## Documentación
+La separación puede ser por unidad espacial, campaña, región o tiempo. Optuna
+realiza CV anidada solo sobre entrenamiento y reserva calibración y prueba.
+Los informes distinguen intervalos de confianza de métricas e intervalos de
+predicción, muestran la cobertura observada y advierten si no alcanza el objetivo.
+Las explicaciones son predictivas y no establecen causalidad. Las consultas
+históricas no constituyen pronósticos de campañas nuevas.
 
-- [Arquitectura](docs/ARCHITECTURE.md), [API](docs/API.md) y [seguridad](docs/SECURITY.md).
-- [Despliegue, volúmenes y respaldos](docs/DEPLOYMENT.md).
-- [Datos y condiciones de uso](docs/DATASETS.md), [perfil YieldSAT](docs/YIELDSAT_WHEAT_PILOT.md) y [antecedente CY-Bench](docs/CYBENCH.md).
-- [Metodología estadística](docs/STATISTICS.md) y [alcance del sistema](docs/SCOPE_REVIEW.md).
-- [Artículo y reproducción de materiales](docs/manuscrito/README.md).
-- [Pruebas](docs/TESTING.md), [estado de implementación](IMPLEMENTATION_STATUS.md) y [contenido del repositorio](docs/REPOSITORY.md).
+Los datos de YieldSAT requieren autorización. También se incluye un adaptador
+para un dataset tabular público de Kaggle; su procedencia y licencia deben revisarse
+antes de redistribuirlo. Ninguno se descarga automáticamente al iniciar la aplicación.
+Los resultados son exploratorios y no acreditan transferencia a Perú. Los datos
+sintéticos se limitan a pruebas y su creación está deshabilitada por defecto.
 
 ## Desarrollo y verificación
+
+El entorno Docker utiliza Python 3.12. Para desarrollo local, usar una versión
+compatible con las dependencias fijadas:
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r backend/requirements.txt
+# Para redes temporales, instalar también backend/ml-requirements.txt.
 $env:PYTHONPATH = 'backend'
-.\.venv\Scripts\python.exe -m pytest backend/tests/test_api.py backend/tests/test_statistics.py -q
+.\.venv\Scripts\python.exe -m pytest backend/tests/test_api.py backend/tests/test_ml.py backend/tests/test_tuning.py backend/tests/test_research.py backend/tests/test_statistics.py -q
 ```
 
-Para compilar la interfaz fuera de Docker, ejecute `npm ci` y `npm run build` desde `frontend/`. Las pruebas que usan NetCDF o redes neuronales necesitan las dependencias adicionales indicadas en [la guía de pruebas](docs/TESTING.md).
+Las pruebas de redes se omiten si PyTorch no está instalado. Los adaptadores
+NetCDF requieren `backend/yieldsat-requirements.txt`. La interfaz se compila
+con `npm ci` y `npm run build` desde `frontend/`.
 
-No publique `.env`, datos originales, artefactos entrenados ni respaldos de base de datos. Las exclusiones están declaradas en `.gitignore`.
+Para iniciar una búsqueda local con un CSV ya preparado:
 
-## Reproducibilidad y reutilización
+```powershell
+$env:PYTHONPATH = 'backend'
+.\.venv\Scripts\python.exe -m app.ml.tuning --source data/mi-dataset.csv --output artifacts/mi-busqueda --model XGBoost --validation temporal --trials 12
+```
 
-La versión `v1.0.0` está archivada en Zenodo: **[DOI: 10.5281/zenodo.24022432](https://doi.org/10.5281/zenodo.24022432)**. El depósito preserva el código y los materiales públicos de esa versión; los datos individuales y los pesos restringidos no se incluyen.
+La CLI escribe artefactos locales; la creación de experimentos desde la aplicación
+los registra además en su base de datos.
 
-La versión `v1.0.0` reúne código, resultados agregados, particiones por índice de fila, versiones del entorno y scripts para volver a entrenar o verificar los modelos originales. Consulte [el protocolo reproducible y acceso a datos](reproducibility/README.md). Los datos fuente se solicitan a YieldSAT; el CSV derivado y los pesos originales se conservan en un paquete local pendiente de revisión de sus condiciones de redistribución. El código propio usa [MIT](LICENSE), con [alcance y exclusiones](LICENSE_SCOPE.md). Para citar el software utilice `CITATION.cff`.
+## Estructura y mantenimiento
+
+```text
+backend/app/          API, modelos, entrenamiento, evaluación y reportes
+backend/alembic/      Migraciones de base de datos
+backend/tests/        Pruebas y recorridos de integración
+backend/research/     Scripts de análisis y reproducción científica
+frontend/             Interfaz y configuración de compilación
+notebooks/            Herramientas de preparación autorizada de datos
+reproducibility/      Instrucciones y dependencias del estudio original
+workflows/            Ejemplo opcional de control de salud
+```
+
+Se conservan código, pruebas, migraciones, archivos de dependencias y sus lockfiles,
+configuración de despliegue, ejemplos `.env.example`, licencia y metadatos de cita.
+No se deben añadir `.env`, datos privados, pesos, bases, documentos, resultados de
+estudios, cachés, dependencias instaladas o builds. `.gitignore` no excluye archivos
+que ya estaban rastreados: comprobar también `git ls-files -ci --exclude-standard`.
+La exclusión actual no elimina copias que ya existan en el historial de Git.
+
+## Licencia y cita
+
+El código propio usa [MIT](LICENSE), con el alcance indicado en
+[LICENSE_SCOPE.md](LICENSE_SCOPE.md). `CITATION.cff` describe el antecedente
+v1.0.0; las ampliaciones posteriores necesitan su propia versión pública antes
+de atribuirles ese depósito. Los resultados y protocolos específicos permanecen
+locales o en el archivo correspondiente de la versión original.

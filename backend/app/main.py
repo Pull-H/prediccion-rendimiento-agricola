@@ -22,6 +22,7 @@ from .models import Audit, Dataset, Experiment, GeneratedReport, ModelVersion, P
 from .reports import report_bytes
 from .security import create_token, current_user, ensure_secret, hasher, require_roles, user_json, ROLES
 from .publication import router as publication_router
+from .research import router as research_router
 
 DATA_DIR = Path(os.getenv("DATA_DIR", "./data"))
 ARTIFACT_DIR = Path(os.getenv("ARTIFACT_DIR", "./artifacts"))
@@ -33,6 +34,7 @@ _login_attempts: dict[tuple[str, str], deque[float]] = {}
 _login_lock = Lock()
 app = FastAPI(title="Plataforma de predicción agrícola", version="0.1.0")
 app.include_router(publication_router)
+app.include_router(research_router)
 origins = [x.strip() for x in os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:3000").split(",") if x.strip()]
 app.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True, allow_methods=["GET", "POST", "PATCH"], allow_headers=["Content-Type", "X-CSRF-Token"])
 
@@ -86,9 +88,14 @@ class UserBody(BaseModel):
 class ExperimentBody(BaseModel):
     dataset_id: int
     model_type: Literal["RandomForest", "XGBoost", "LSTM", "CNN-LSTM", "CNN-Transformer"]
-    seed: int = 42
+    seed: int = Field(default=42, ge=0, le=2147483647)
     validation: Literal["parcel", "campaign", "region", "temporal"] = "parcel"
     epochs: int = Field(default=5, ge=1, le=100)
+    tuning_trials: int = Field(default=0, ge=0, le=50)
+    outer_folds: int = Field(default=5, ge=2, le=10)
+    inner_folds: int = Field(default=3, ge=2, le=10)
+    search_ranges: dict[str, list[int | float]] | None = None
+    hyperparameters: dict[str, int | float] | None = None
 
 class PredictionBody(BaseModel):
     model_id: int
@@ -272,14 +279,24 @@ def experiment(experiment_id: int, user: User = Depends(current_user), db: Sessi
     if not row: raise HTTPException(404, "Experimento no encontrado")
     return as_json(row, EXPERIMENT_FIELDS)
 
-def run_training(experiment_id: int, epochs: int):
+def run_training(experiment_id: int, epochs: int, tuning_trials: int = 0,
+                 outer_folds: int = 5, inner_folds: int = 3, search_ranges=None,
+                 hyperparameters=None, resume: bool = False):
     from .ml import train
+    from .ml.tuning import TrainingCancelled
     with SessionLocal() as db:
         row = db.scalar(select(Experiment).where(research_condition(Experiment), Experiment.id == experiment_id))
         if not row or row.status == "cancelled": return
         row.status = "running"; row.progress = 1; db.commit()
+        request_config = (row.split_info or {}).get("request", {})
         dataset = db.scalar(select(Dataset).where(research_condition(Dataset), Dataset.id == row.dataset_id))
+        def cancelled():
+            with SessionLocal() as inner:
+                task = inner.get(Experiment, experiment_id)
+                return not task or task.status == "cancel_requested"
         def progress(update):
+            if cancelled():
+                raise TrainingCancelled("Training cancelled by user")
             with SessionLocal() as inner:
                 task = inner.get(Experiment, experiment_id)
                 if task:
@@ -287,33 +304,81 @@ def run_training(experiment_id: int, epochs: int):
                     task.logs = (task.logs + "\n" + str(update.get("stage", "processing")))[-10000:]
                     inner.commit()
         try:
-            result = train(dataset.file_path, row.model_type, str(ARTIFACT_DIR), seed=row.seed, validation=row.validation, epochs=epochs, progress=progress)
+            if tuning_trials:
+                from .ml.tuning import optimize
+                search = optimize(dataset.file_path, ARTIFACT_DIR / f"search-{row.id}",
+                                  row.model_type, row.validation, row.seed, trials=tuning_trials,
+                                  outer_folds=outer_folds, inner_folds=inner_folds,
+                                  search_ranges=search_ranges, cancelled=cancelled, resume=resume,
+                                  progress=lambda update: progress({"stage": str(update), "percent": update.get("percent", 1)}))
+                result = {
+                    "metrics": {"test": search["test_metrics"],
+                                "baseline_test": search["baseline_test_metrics"],
+                                "nested_cv_rmse": search["outer_rmse_mean"]},
+                    "split_info": {**search["split_info"], "optimization": search},
+                    "artifact_path": search["artifact_path"],
+                    "feature_names": search["feature_names"],
+                }
+            else:
+                result = train(dataset.file_path, row.model_type, str(ARTIFACT_DIR), seed=row.seed, validation=row.validation, epochs=epochs, progress=progress, hyperparameters=hyperparameters)
+            if cancelled():
+                raise TrainingCancelled("Training cancelled by user")
             row.metrics = result["metrics"]
-            row.split_info = result.get("split_info", {})
+            row.split_info = {**result.get("split_info", {}), "request": request_config}
             row.status = "completed"; row.progress = 100; row.completed_at = now()
             db.add(ModelVersion(experiment_id=row.id, model_type=row.model_type, artifact_path=result["artifact_path"], feature_names=result["feature_names"], metrics=result["metrics"], synthetic=dataset.synthetic))
             db.commit(); event(db, "experiment.completed", detail={"experiment_id": row.id})
+        except TrainingCancelled:
+            row.status = "cancelled"; row.completed_at = now(); db.commit()
+            event(db, "experiment.cancelled", detail={"experiment_id": row.id})
         except Exception as exc:
             row.status = "failed"; row.error = str(exc)[:1000]; row.completed_at = now(); db.commit()
             event(db, "experiment.failed", detail={"experiment_id": row.id, "error": row.error})
 
 @app.post("/api/experiments", status_code=202)
 def start_experiment(body: ExperimentBody, tasks: BackgroundTasks, user: User = Depends(require_roles("admin", "researcher")), db: Session = Depends(get_db)):
-    if not db.scalar(select(Dataset).where(research_condition(Dataset), Dataset.id == body.dataset_id)): raise HTTPException(404, "Dataset no encontrado")
-    active = db.scalar(select(func.count()).select_from(Experiment).where(research_condition(Experiment)).where(Experiment.status.in_(["queued", "running"])))
+    from .ml.tuning import validate_parameters, validated_ranges, _folds
+    from .ml.pipeline import _read_dataset, _split, _sequence_schema, DEEP_MODELS
+    dataset = db.scalar(select(Dataset).where(research_condition(Dataset), Dataset.id == body.dataset_id))
+    if not dataset:
+        raise HTTPException(404, "Dataset no encontrado")
+    try:
+        validate_parameters(body.model_type, body.hyperparameters or {})
+        if body.tuning_trials and body.hyperparameters:
+            raise ValueError("Elija búsqueda o parámetros fijos, no ambos")
+        frame, features = _read_dataset(dataset.file_path)
+        train_idx, _, _, _ = _split(frame, body.validation, body.seed)
+        if body.model_type in DEEP_MODELS:
+            import importlib.util
+            if importlib.util.find_spec("torch") is None:
+                raise ValueError("Active PyTorch para entrenar redes temporales")
+            schema = _sequence_schema(features)
+            if body.model_type == "CNN-Transformer" and len(schema["variables"]) < 2:
+                raise ValueError("CNN-Transformer requiere al menos dos variables temporales")
+        if body.tuning_trials:
+            validated_ranges(body.model_type, body.search_ranges)
+            development = frame.iloc[train_idx]
+            for train_fold, _ in _folds(development, body.validation, body.outer_folds, body.inner_folds + 1):
+                _folds(development.iloc[train_fold], body.validation, body.inner_folds)
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
+    active = db.scalar(select(func.count()).select_from(Experiment).where(research_condition(Experiment)).where(Experiment.status.in_(["queued", "running", "cancel_requested"])))
     if active >= 2: raise HTTPException(429, "Límite de dos entrenamientos simultáneos")
-    row = Experiment(dataset_id=body.dataset_id, model_type=body.model_type, seed=body.seed, validation=body.validation)
+    row = Experiment(dataset_id=body.dataset_id, model_type=body.model_type, seed=body.seed, validation=body.validation,
+                     split_info={"request": body.model_dump()})
     db.add(row); db.commit(); db.refresh(row)
     event(db, "experiment.started", user.id, {"experiment_id": row.id})
-    tasks.add_task(run_training, row.id, body.epochs)
+    tasks.add_task(run_training, row.id, body.epochs, body.tuning_trials, body.outer_folds,
+                   body.inner_folds, body.search_ranges, body.hyperparameters)
     return as_json(row, EXPERIMENT_FIELDS)
 
 @app.post("/api/experiments/{experiment_id}/cancel")
 def cancel_experiment(experiment_id: int, user: User = Depends(require_roles("admin", "researcher")), db: Session = Depends(get_db)):
     row = db.scalar(select(Experiment).where(research_condition(Experiment), Experiment.id == experiment_id))
     if not row: raise HTTPException(404, "Experimento no encontrado")
-    if row.status != "queued": raise HTTPException(409, "Solo se puede cancelar una tarea en cola")
-    row.status = "cancelled"; db.commit(); event(db, "experiment.cancelled", user.id, {"experiment_id": row.id})
+    if row.status not in {"queued", "running"}: raise HTTPException(409, "La tarea no está activa")
+    row.status = "cancelled" if row.status == "queued" else "cancel_requested"
+    db.commit(); event(db, "experiment.cancel_requested", user.id, {"experiment_id": row.id})
     return as_json(row, EXPERIMENT_FIELDS)
 
 @app.get("/api/models")
@@ -428,9 +493,17 @@ def make_prediction(body: PredictionBody, user: User = Depends(require_roles("ad
     if set(body.features) != set(model.feature_names):
         raise HTTPException(422, {"required_features": model.feature_names, "message": "Las variables deben coincidir exactamente con el entrenamiento"})
     if body.parcel_id and not db.scalar(select(Parcel).where(research_condition(Parcel), Parcel.id == body.parcel_id)): raise HTTPException(404, "Parcela no encontrada")
-    value = float(predict(model.artifact_path, body.features))
+    from .ml.analysis import infer_many
+    experiment = db.scalar(select(Experiment).where(research_condition(Experiment), Experiment.id == model.experiment_id))
+    dataset = db.scalar(select(Dataset).where(research_condition(Dataset), Dataset.id == experiment.dataset_id)) if experiment else None
+    try:
+        detailed = infer_many(model.artifact_path, dataset.file_path, [body.features])
+    except (ValueError, TypeError, KeyError, OSError) as exc:
+        raise HTTPException(422, str(exc)) from exc
+    value = detailed["predictions"][0]["yield_t_ha"]
     warnings = ["Resultado de demostración sintética; sin validez científica"] if model.synthetic else []
     warnings.extend(categorical_domain_warnings(model.artifact_path, body.features))
+    warnings.extend(detailed["predictions"][0]["warnings"])
     if historical_role:
         labels = {"train": "entrenamiento", "validation": "validación", "test": "prueba"}
         warnings.append(f"Predicción sobre un registro histórico de {labels[historical_role]}; no es un pronóstico de una campaña nueva")
@@ -455,7 +528,8 @@ def make_prediction(body: PredictionBody, user: User = Depends(require_roles("ad
     row = Prediction(model_id=model.id, user_id=user.id, parcel_id=body.parcel_id, input_features=body.features, yield_t_ha=value, warnings=warnings, synthetic=model.synthetic)
     db.add(row); db.commit(); db.refresh(row)
     event(db, "prediction.create", user.id, {"prediction_id": row.id, "model_id": model.id})
-    return as_json(row, PREDICTION_FIELDS)
+    return {**as_json(row, PREDICTION_FIELDS), "interval": detailed["predictions"][0]["interval"],
+            "interval_protocol": detailed["interval_protocol"]}
 
 @app.get("/api/audit")
 def audit(user: User = Depends(require_roles("admin")), db: Session = Depends(get_db)):

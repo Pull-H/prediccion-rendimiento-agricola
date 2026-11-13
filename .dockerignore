@@ -8,3 +8,17 @@ artifacts
 __pycache__
 *.pyc
 *.docx
+docs
+notebooks/.ipynb_checkpoints
+.pytest_cache
+.mypy_cache
+.ruff_cache
+htmlcov
+.coverage
+coverage.xml
+frontend/.npm-cache
+*.pdf
+*.xlsx
+*.tiff
+*.zip
+*.log
