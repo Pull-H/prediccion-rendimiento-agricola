@@ -1,12 +1,12 @@
 cff-version: 1.2.0
-message: "Cite this software release when using the application or reproduction scripts. Cite YieldSAT separately for its data."
+message: "Cite this software release when using the application or reproduction scripts. Cite data providers (YieldSAT, Kaggle) separately."
 type: software
-title: "Predicción del rendimiento agrícola: piloto reproducible de trigo alemán"
-version: 1.0.0
-doi: 10.5281/zenodo.24022432
-date-released: 2026-11-06
+title: "AgroVisión: plataforma reproducible para modelar el rendimiento agrícola"
+version: 1.1.0
+doi: 10.5281/zenodo.24352582
+date-released: 2026-11-18
 repository-code: "https://github.com/Pull-H/prediccion-rendimiento-agricola"
-url: "https://github.com/Pull-H/prediccion-rendimiento-agricola/releases/tag/v1.0.0"
+url: "https://github.com/Pull-H/prediccion-rendimiento-agricola/releases/tag/v1.1.0"
 license: MIT
 authors:
   - family-names: "García Alayo"
@@ -21,3 +21,13 @@ authors:
     given-names: "Juan Pedro"
     affiliation: "Universidad Nacional de Trujillo"
     orcid: "https://orcid.org/0000-0002-8882-9256"
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.24352582
+    description: "Version 1.1.0"
+  - type: doi
+    value: 10.5281/zenodo.24022431
+    description: "All versions (concept DOI)"
+  - type: doi
+    value: 10.5281/zenodo.24022432
+    description: "Version 1.0.0: German wheat pilot with YieldSAT"

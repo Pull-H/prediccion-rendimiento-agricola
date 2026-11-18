@@ -88,7 +88,7 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r backend/requirements.txt
 # Para redes temporales, instalar también backend/ml-requirements.txt.
 $env:PYTHONPATH = 'backend'
-.\.venv\Scripts\python.exe -m pytest backend/tests/test_api.py backend/tests/test_ml.py backend/tests/test_tuning.py backend/tests/test_research.py backend/tests/test_statistics.py -q
+.\.venv\Scripts\python.exe -m pytest backend/tests/test_api.py backend/tests/test_ml.py backend/tests/test_tuning.py backend/tests/test_research.py backend/tests/test_statistics.py backend/tests/test_robustness.py -q
 ```
 
 Las pruebas de redes se omiten si PyTorch no está instalado. Los adaptadores
@@ -104,6 +104,17 @@ $env:PYTHONPATH = 'backend'
 
 La CLI escribe artefactos locales; la creación de experimentos desde la aplicación
 los registra además en su base de datos.
+
+Tras completar búsquedas temporales de Random Forest y XGBoost sobre el mismo CSV,
+el módulo de robustez añade, sin reajustar con el periodo de prueba, la referencia
+de persistencia (campaña anterior del mismo país), WAPE y MASE, contrastes pareados
+con varianza agrupada por país y ajuste de Holm, validación con países no vistos,
+recalibración conformal secuencial y una partición cronológica 70/15/15:
+
+```powershell
+$env:PYTHONPATH = 'backend'
+.\.venv\Scripts\python.exe -m app.ml.robustness --source data/mi-dataset.csv --runs artifacts/rf/<run>.json artifacts/xgb/<run>.json --output artifacts/robustez.json --figures artifacts/figuras
+```
 
 ## Estructura y mantenimiento
 
@@ -128,7 +139,11 @@ La exclusión actual no elimina copias que ya existan en el historial de Git.
 ## Licencia y cita
 
 El código propio usa [MIT](LICENSE), con el alcance indicado en
-[LICENSE_SCOPE.md](LICENSE_SCOPE.md). `CITATION.cff` describe el antecedente
-v1.0.0; las ampliaciones posteriores necesitan su propia versión pública antes
-de atribuirles ese depósito. Los resultados y protocolos específicos permanecen
-locales o en el archivo correspondiente de la versión original.
+[LICENSE_SCOPE.md](LICENSE_SCOPE.md). `CITATION.cff` describe la versión 1.1.0
+(DOI [10.5281/zenodo.24352582](https://doi.org/10.5281/zenodo.24352582)), que añade
+el módulo de robustez y los resultados agregados del caso de trigo en
+`reproducibility/kaggle-trigo/`. La versión 1.0.0
+([10.5281/zenodo.24022432](https://doi.org/10.5281/zenodo.24022432)) conserva el
+piloto con YieldSAT; el DOI [10.5281/zenodo.24022431](https://doi.org/10.5281/zenodo.24022431)
+reúne todas las versiones. Los datos de terceros y los modelos entrenados no se
+incluyen en los depósitos.

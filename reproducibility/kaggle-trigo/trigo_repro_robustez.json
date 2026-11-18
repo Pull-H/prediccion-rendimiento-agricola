@@ -1,0 +1,787 @@
+{
+  "source_sha256": "dbc0964b57d995f25d321145f7f77704db31cc8edd0c44fa10dd0d7b6707fa66",
+  "seed": 42,
+  "alpha": 0.1,
+  "split": {
+    "train_years": [
+      1990,
+      1991,
+      1992,
+      1993,
+      1994,
+      1995,
+      1996,
+      1997,
+      1998,
+      1999,
+      2000,
+      2001,
+      2002,
+      2004
+    ],
+    "validation_years": [
+      2005,
+      2006,
+      2007,
+      2008
+    ],
+    "test_years": [
+      2009,
+      2010,
+      2011,
+      2012,
+      2013
+    ],
+    "train_rows": 1085,
+    "validation_rows": 323,
+    "test_rows": 402
+  },
+  "mase_scale_t_ha": 0.319690248756219,
+  "persistence_fallbacks": 1,
+  "models": {
+    "RandomForest": {
+      "parameters": {
+        "n_estimators": 197,
+        "max_depth": 17,
+        "min_samples_leaf": 2,
+        "min_samples_split": 17,
+        "max_features": 0.4980915678940375
+      },
+      "test": {
+        "mae": 0.6468499065551565,
+        "rmse": 0.8488064036498649,
+        "r2": 0.8362144780794318,
+        "mape": 22.204457421361674,
+        "n": 402,
+        "wape": 18.953636836666526,
+        "mase": 2.0233645194740184,
+        "ci95": {
+          "mae": [
+            0.5424581427041356,
+            0.7531643664342579
+          ],
+          "rmse": [
+            0.7132642768758913,
+            0.9873104427996815
+          ],
+          "blocks": 81,
+          "repetitions": 500
+        }
+      },
+      "residuals_by_year": {
+        "2009": {
+          "mean_residual": 0.367910980048177,
+          "mae": 0.5858427478347762,
+          "rmse": 0.7754615490593187,
+          "r2": 0.8701297841834732,
+          "mape": 21.503044253498196,
+          "n": 80
+        },
+        "2010": {
+          "mean_residual": 0.3250736053813301,
+          "mae": 0.540199165190765,
+          "rmse": 0.7588962838287473,
+          "r2": 0.8652389285607693,
+          "mape": 19.087538149605006,
+          "n": 80
+        },
+        "2011": {
+          "mean_residual": 0.4692080638260177,
+          "mae": 0.6456596490023656,
+          "rmse": 0.8165667210136439,
+          "r2": 0.8402493260543895,
+          "mape": 21.055312763986265,
+          "n": 80
+        },
+        "2012": {
+          "mean_residual": 0.43763923799237386,
+          "mae": 0.6877886849460564,
+          "rmse": 0.8994837729712888,
+          "r2": 0.8136620992549037,
+          "mape": 23.61334451380036,
+          "n": 81
+        },
+        "2013": {
+          "mean_residual": 0.5636507236567799,
+          "mae": 0.7726747406457997,
+          "rmse": 0.9722792478767006,
+          "r2": 0.7917082995626057,
+          "mape": 25.701720548177853,
+          "n": 81
+        }
+      },
+      "calibration_mean_abs_residual": 0.5050792092821917,
+      "test_mean_abs_residual": 0.6468499065551565,
+      "conformal": {
+        "static": {
+          "mode": "static",
+          "nominal": 0.9,
+          "coverage": 0.7835820895522388,
+          "covered": 315,
+          "n": 402,
+          "by_year": [
+            {
+              "year": 2009,
+              "radius": 1.014127630306482,
+              "calibration_n": 323,
+              "coverage": 0.8375,
+              "n": 80
+            },
+            {
+              "year": 2010,
+              "radius": 1.014127630306482,
+              "calibration_n": 323,
+              "coverage": 0.825,
+              "n": 80
+            },
+            {
+              "year": 2011,
+              "radius": 1.014127630306482,
+              "calibration_n": 323,
+              "coverage": 0.8,
+              "n": 80
+            },
+            {
+              "year": 2012,
+              "radius": 1.014127630306482,
+              "calibration_n": 323,
+              "coverage": 0.7654320987654321,
+              "n": 81
+            },
+            {
+              "year": 2013,
+              "radius": 1.014127630306482,
+              "calibration_n": 323,
+              "coverage": 0.691358024691358,
+              "n": 81
+            }
+          ],
+          "mean_width": 2.028255260612964
+        },
+        "expanding": {
+          "mode": "expanding",
+          "nominal": 0.9,
+          "coverage": 0.8333333333333334,
+          "covered": 335,
+          "n": 402,
+          "by_year": [
+            {
+              "year": 2009,
+              "radius": 1.014127630306482,
+              "calibration_n": 323,
+              "coverage": 0.8375,
+              "n": 80
+            },
+            {
+              "year": 2010,
+              "radius": 1.0708198230731747,
+              "calibration_n": 403,
+              "coverage": 0.825,
+              "n": 80
+            },
+            {
+              "year": 2011,
+              "radius": 1.1397363698080385,
+              "calibration_n": 483,
+              "coverage": 0.85,
+              "n": 80
+            },
+            {
+              "year": 2012,
+              "radius": 1.1524450872033194,
+              "calibration_n": 563,
+              "coverage": 0.8271604938271605,
+              "n": 81
+            },
+            {
+              "year": 2013,
+              "radius": 1.1941024365040187,
+              "calibration_n": 644,
+              "coverage": 0.8271604938271605,
+              "n": 81
+            }
+          ],
+          "mean_width": 2.2284925387580135
+        },
+        "sliding": {
+          "mode": "sliding",
+          "nominal": 0.9,
+          "coverage": 0.8681592039800995,
+          "covered": 349,
+          "n": 402,
+          "by_year": [
+            {
+              "year": 2009,
+              "radius": 1.014127630306482,
+              "calibration_n": 323,
+              "coverage": 0.8375,
+              "n": 80
+            },
+            {
+              "year": 2010,
+              "radius": 1.1406707252282455,
+              "calibration_n": 323,
+              "coverage": 0.8375,
+              "n": 80
+            },
+            {
+              "year": 2011,
+              "radius": 1.2887586322734004,
+              "calibration_n": 322,
+              "coverage": 0.9,
+              "n": 80
+            },
+            {
+              "year": 2012,
+              "radius": 1.3270570357894957,
+              "calibration_n": 321,
+              "coverage": 0.8888888888888888,
+              "n": 81
+            },
+            {
+              "year": 2013,
+              "radius": 1.3707837937875562,
+              "calibration_n": 321,
+              "coverage": 0.8765432098765432,
+              "n": 81
+            }
+          ],
+          "mean_width": 2.4565591269540716
+        }
+      },
+      "unseen_countries": {
+        "mae": 1.3313671934782216,
+        "rmse": 1.8817599558137414,
+        "r2": 0.19501709212792506,
+        "mape": 44.49048215791043,
+        "n": 402,
+        "wape": 39.0109823402849,
+        "mase": 4.164553653600679,
+        "coverage": 0.5497512437810945,
+        "folds": [
+          {
+            "fold": 0,
+            "held_out_countries": 17,
+            "train_rows": 855,
+            "calibration_rows": 255,
+            "test_rows": 85,
+            "radius": 1.0264579125769553
+          },
+          {
+            "fold": 1,
+            "held_out_countries": 16,
+            "train_rows": 887,
+            "calibration_rows": 263,
+            "test_rows": 77,
+            "radius": 1.0347096479480413
+          },
+          {
+            "fold": 2,
+            "held_out_countries": 16,
+            "train_rows": 868,
+            "calibration_rows": 259,
+            "test_rows": 80,
+            "radius": 1.049349449995171
+          },
+          {
+            "fold": 3,
+            "held_out_countries": 16,
+            "train_rows": 865,
+            "calibration_rows": 259,
+            "test_rows": 80,
+            "radius": 1.039146294819897
+          },
+          {
+            "fold": 4,
+            "held_out_countries": 16,
+            "train_rows": 879,
+            "calibration_rows": 260,
+            "test_rows": 80,
+            "radius": 0.9839401778844357
+          }
+        ]
+      },
+      "split_70_15_15": {
+        "train_years": [
+          1990,
+          2006
+        ],
+        "calibration_years": [
+          2007,
+          2010
+        ],
+        "test_years": [
+          2011,
+          2013
+        ],
+        "rows": [
+          1246,
+          322,
+          242
+        ],
+        "test": {
+          "mae": 0.6566699544621077,
+          "rmse": 0.8401839954301151,
+          "r2": 0.8379404788193879,
+          "mape": 21.86074584438084,
+          "n": 242,
+          "wape": 18.934548998033208,
+          "mase": 2.054081902769746
+        },
+        "coverage": 0.8553719008264463,
+        "radius": 1.1624296373730831
+      }
+    },
+    "XGBoost": {
+      "parameters": {
+        "n_estimators": 198,
+        "max_depth": 6,
+        "learning_rate": 0.1282866941438688,
+        "subsample": 0.900145512999101,
+        "colsample_bytree": 0.8540545643298413,
+        "min_child_weight": 1,
+        "reg_alpha": 0.00018276335391010807,
+        "reg_lambda": 1.3401445737263893
+      },
+      "test": {
+        "mae": 0.6499664658224998,
+        "rmse": 0.8692737862396113,
+        "r2": 0.8282204816064568,
+        "mape": 22.55788934214436,
+        "n": 402,
+        "wape": 19.044956526032724,
+        "mase": 2.033113203643988,
+        "ci95": {
+          "mae": [
+            0.5522801199207757,
+            0.7621396934278112
+          ],
+          "rmse": [
+            0.7237481210734077,
+            1.0197802334517123
+          ],
+          "blocks": 81,
+          "repetitions": 500
+        }
+      },
+      "residuals_by_year": {
+        "2009": {
+          "mean_residual": 0.3629405567473173,
+          "mae": 0.6214952005046606,
+          "rmse": 0.8254178959196756,
+          "r2": 0.8528579553168972,
+          "mape": 23.0927140120423,
+          "n": 80
+        },
+        "2010": {
+          "mean_residual": 0.29046036170303824,
+          "mae": 0.5284146576076746,
+          "rmse": 0.7515054616272597,
+          "r2": 0.8678509987122915,
+          "mape": 18.78924802095747,
+          "n": 80
+        },
+        "2011": {
+          "mean_residual": 0.45545764615178114,
+          "mae": 0.6367794959199429,
+          "rmse": 0.8139414380099346,
+          "r2": 0.8412748798575912,
+          "mape": 21.49780495055919,
+          "n": 80
+        },
+        "2012": {
+          "mean_residual": 0.4236686251775718,
+          "mae": 0.7137566242647759,
+          "rmse": 0.9641552155914802,
+          "r2": 0.7859040546644711,
+          "mape": 23.874402515708155,
+          "n": 81
+        },
+        "2013": {
+          "mean_residual": 0.5275727552355072,
+          "mae": 0.7473714120076027,
+          "rmse": 0.9672587985088421,
+          "r2": 0.7938538109675328,
+          "mape": 25.48226608746859,
+          "n": 81
+        }
+      },
+      "calibration_mean_abs_residual": 0.5070835643682686,
+      "test_mean_abs_residual": 0.6499664658224998,
+      "conformal": {
+        "static": {
+          "mode": "static",
+          "nominal": 0.9,
+          "coverage": 0.7985074626865671,
+          "covered": 321,
+          "n": 402,
+          "by_year": [
+            {
+              "year": 2009,
+              "radius": 1.0407121528625485,
+              "calibration_n": 323,
+              "coverage": 0.8125,
+              "n": 80
+            },
+            {
+              "year": 2010,
+              "radius": 1.0407121528625485,
+              "calibration_n": 323,
+              "coverage": 0.8375,
+              "n": 80
+            },
+            {
+              "year": 2011,
+              "radius": 1.0407121528625485,
+              "calibration_n": 323,
+              "coverage": 0.8,
+              "n": 80
+            },
+            {
+              "year": 2012,
+              "radius": 1.0407121528625485,
+              "calibration_n": 323,
+              "coverage": 0.8024691358024691,
+              "n": 81
+            },
+            {
+              "year": 2013,
+              "radius": 1.0407121528625485,
+              "calibration_n": 323,
+              "coverage": 0.7407407407407407,
+              "n": 81
+            }
+          ],
+          "mean_width": 2.081424305725097
+        },
+        "expanding": {
+          "mode": "expanding",
+          "nominal": 0.9,
+          "coverage": 0.8208955223880597,
+          "covered": 330,
+          "n": 402,
+          "by_year": [
+            {
+              "year": 2009,
+              "radius": 1.0407121528625485,
+              "calibration_n": 323,
+              "coverage": 0.8125,
+              "n": 80
+            },
+            {
+              "year": 2010,
+              "radius": 1.1020201673507692,
+              "calibration_n": 403,
+              "coverage": 0.85,
+              "n": 80
+            },
+            {
+              "year": 2011,
+              "radius": 1.124383168411255,
+              "calibration_n": 483,
+              "coverage": 0.825,
+              "n": 80
+            },
+            {
+              "year": 2012,
+              "radius": 1.1745729644775391,
+              "calibration_n": 563,
+              "coverage": 0.8271604938271605,
+              "n": 81
+            },
+            {
+              "year": 2013,
+              "radius": 1.198618438720703,
+              "calibration_n": 644,
+              "coverage": 0.7901234567901234,
+              "n": 81
+            }
+          ],
+          "mean_width": 2.256122756729126
+        },
+        "sliding": {
+          "mode": "sliding",
+          "nominal": 0.9,
+          "coverage": 0.8482587064676617,
+          "covered": 341,
+          "n": 402,
+          "by_year": [
+            {
+              "year": 2009,
+              "radius": 1.0407121528625485,
+              "calibration_n": 323,
+              "coverage": 0.8125,
+              "n": 80
+            },
+            {
+              "year": 2010,
+              "radius": 1.1542145561218264,
+              "calibration_n": 323,
+              "coverage": 0.8625,
+              "n": 80
+            },
+            {
+              "year": 2011,
+              "radius": 1.211017638015747,
+              "calibration_n": 322,
+              "coverage": 0.8625,
+              "n": 80
+            },
+            {
+              "year": 2012,
+              "radius": 1.2661436477661132,
+              "calibration_n": 321,
+              "coverage": 0.8395061728395061,
+              "n": 81
+            },
+            {
+              "year": 2013,
+              "radius": 1.3090369197845457,
+              "calibration_n": 321,
+              "coverage": 0.8641975308641975,
+              "n": 81
+            }
+          ],
+          "mean_width": 2.3924499658203127
+        }
+      },
+      "unseen_countries": {
+        "mae": 1.448402997922186,
+        "rmse": 2.001672777870228,
+        "r2": 0.08915520657289688,
+        "mape": 50.84775314039235,
+        "n": 402,
+        "wape": 42.44030050488276,
+        "mase": 4.530644908805683,
+        "coverage": 0.5373134328358209,
+        "folds": [
+          {
+            "fold": 0,
+            "held_out_countries": 17,
+            "train_rows": 855,
+            "calibration_rows": 255,
+            "test_rows": 85,
+            "radius": 1.0323912452697757
+          },
+          {
+            "fold": 1,
+            "held_out_countries": 16,
+            "train_rows": 887,
+            "calibration_rows": 263,
+            "test_rows": 77,
+            "radius": 1.0360594024658205
+          },
+          {
+            "fold": 2,
+            "held_out_countries": 16,
+            "train_rows": 868,
+            "calibration_rows": 259,
+            "test_rows": 80,
+            "radius": 1.108557545089722
+          },
+          {
+            "fold": 3,
+            "held_out_countries": 16,
+            "train_rows": 865,
+            "calibration_rows": 259,
+            "test_rows": 80,
+            "radius": 1.0618784450531007
+          },
+          {
+            "fold": 4,
+            "held_out_countries": 16,
+            "train_rows": 879,
+            "calibration_rows": 260,
+            "test_rows": 80,
+            "radius": 0.9391700983047485
+          }
+        ]
+      },
+      "split_70_15_15": {
+        "train_years": [
+          1990,
+          2006
+        ],
+        "calibration_years": [
+          2007,
+          2010
+        ],
+        "test_years": [
+          2011,
+          2013
+        ],
+        "rows": [
+          1246,
+          322,
+          242
+        ],
+        "test": {
+          "mae": 0.6361060169125391,
+          "rmse": 0.8165750060492393,
+          "r2": 0.846920192269618,
+          "mape": 21.880477360230486,
+          "n": 242,
+          "wape": 18.341604429031655,
+          "mase": 1.9897573335044203
+        },
+        "coverage": 0.859504132231405,
+        "radius": 1.087468892669678
+      }
+    }
+  },
+  "references": {
+    "Persistencia": {
+      "mae": 0.3796801616342252,
+      "rmse": 0.571533077539423,
+      "r2": 0.9257423921149863,
+      "mape": 12.77542394525726,
+      "n": 402,
+      "wape": 11.125177301217288,
+      "mase": 1.1876501179232142,
+      "ci95": {
+        "mae": [
+          0.3193812375048719,
+          0.4412096895718829
+        ],
+        "rmse": [
+          0.4741033088485996,
+          0.684862359341308
+        ],
+        "blocks": 81,
+        "repetitions": 500
+      }
+    },
+    "Media de entrenamiento": {
+      "mae": 1.5864177852672126,
+      "rmse": 2.156189407708197,
+      "r2": -0.05689545608138613,
+      "mape": 64.44949710563861,
+      "n": 402,
+      "wape": 46.48433317910614,
+      "mase": 4.962359006692574,
+      "ci95": {
+        "mae": [
+          1.2865206454122968,
+          1.8688915083085074
+        ],
+        "rmse": [
+          1.7386734753934185,
+          2.515657177699099
+        ],
+        "blocks": 81,
+        "repetitions": 500
+      }
+    }
+  },
+  "comparisons": [
+    {
+      "model_a": "RandomForest",
+      "model_b": "XGBoost",
+      "rmse_a": 0.8488064036498649,
+      "rmse_b": 0.8692737862396113,
+      "delta_rmse": -0.02046738258974634,
+      "delta_rmse_95ci_cluster_bootstrap": [
+        -0.060086803679863694,
+        0.024514271636861724
+      ],
+      "dm_squared_loss": {
+        "mean_difference": -0.03516460456633211,
+        "statistic": -0.9294039261836399,
+        "df": 80,
+        "p_value": 0.35547574070312893,
+        "p_holm": 0.35547574070312893
+      },
+      "dm_absolute_loss": {
+        "mean_difference": -0.0031165592673433303,
+        "statistic": -0.1680488800776297,
+        "df": 80,
+        "p_value": 0.866968941354333
+      },
+      "wilcoxon_country_mae": {
+        "statistic": 1621.0,
+        "p_value": 0.8524627171241181,
+        "countries": 81,
+        "countries_favouring_b": 42
+      }
+    },
+    {
+      "model_a": "Persistencia",
+      "model_b": "RandomForest",
+      "rmse_a": 0.571533077539423,
+      "rmse_b": 0.8488064036498649,
+      "delta_rmse": -0.277273326110442,
+      "delta_rmse_95ci_cluster_bootstrap": [
+        -0.44063566087054573,
+        -0.11828772248940608
+      ],
+      "dm_squared_loss": {
+        "mean_difference": -0.39382225215533323,
+        "statistic": -3.03659110934112,
+        "df": 80,
+        "p_value": 0.0032292283316597034,
+        "p_holm": 0.00968768499497911
+      },
+      "dm_absolute_loss": {
+        "mean_difference": -0.26716974492093126,
+        "statistic": -4.887344815574229,
+        "df": 80,
+        "p_value": 5.167642551548976e-06
+      },
+      "wilcoxon_country_mae": {
+        "statistic": 695.0,
+        "p_value": 5.471518998607289e-06,
+        "countries": 81,
+        "countries_favouring_b": 20
+      }
+    },
+    {
+      "model_a": "Persistencia",
+      "model_b": "XGBoost",
+      "rmse_a": 0.571533077539423,
+      "rmse_b": 0.8692737862396113,
+      "delta_rmse": -0.2977407087001883,
+      "delta_rmse_95ci_cluster_bootstrap": [
+        -0.4808131753486657,
+        -0.11945086259567887
+      ],
+      "dm_squared_loss": {
+        "mean_difference": -0.4289868567216654,
+        "statistic": -2.89432144402943,
+        "df": 80,
+        "p_value": 0.004895417922123365,
+        "p_holm": 0.00979083584424673
+      },
+      "dm_absolute_loss": {
+        "mean_difference": -0.2702863041882746,
+        "statistic": -4.627633451826739,
+        "df": 80,
+        "p_value": 1.4069665749936516e-05
+      },
+      "wilcoxon_country_mae": {
+        "statistic": 710.0,
+        "p_value": 7.633225256371893e-06,
+        "countries": 81,
+        "countries_favouring_b": 24
+      }
+    }
+  ],
+  "environment": {
+    "python": "3.14.5",
+    "machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 126 Stepping 5, GenuineIntel",
+    "system": "Windows-11-10.0.22631-SP0",
+    "versions": {
+      "numpy": "2.5.4",
+      "pandas": "3.1.1",
+      "scikit-learn": "1.9.1",
+      "optuna": "5.0.0",
+      "xgboost": "3.4.1"
+    }
+  },
+  "runtime_seconds": 9.33,
+  "notes": [
+    "Hyperparameters were selected on the development period only and are reused unchanged.",
+    "Spatio-temporal folds reuse hyperparameters chosen with all development countries.",
+    "Sequential recalibration assumes each harvest is observed before the next season."
+  ]
+}
